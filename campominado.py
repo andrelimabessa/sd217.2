@@ -3,11 +3,11 @@ from random import randint
 class CampoMinado:
 
     def __init__(self, tamanho):
-        """ Iniciando objeto com tabuleiro 5x5 """
+        """ Iniciando objeto com tabuleiro NxN """
         self.tamanho = tamanho
+        self.coordenadas_bombas = []
         self.qtd_bombas = self.__total_bombas()
         self.__distribuir_bombas()
-        self.coordenadas_bombas = []
         self.tabuleiro = [['X' for i in range(tamanho)] for j in range(tamanho)]
 
     def __distribuir_bombas(self):
