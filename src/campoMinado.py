@@ -21,7 +21,6 @@ class CampoMinado(object):
             if coordenada not in self.coordenadas_bombas:
                 self.coordenadas_bombas
 
-
     def __str__(self):
         return str(self.tabuleiro)
 
