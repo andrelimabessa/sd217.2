@@ -59,6 +59,7 @@ class CampoMinado:
                 print("Game Over")
             else:
                 print("Escapou Fedendo !!")
+                self.__tabuleiro[linha][coluna] = 0
             
        # raise NotImplementedError("Método não implementado")
 
