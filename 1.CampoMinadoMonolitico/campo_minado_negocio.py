@@ -58,7 +58,7 @@ class CampoMinado:
             if self.__mina_acertada(linha,coluna):
                 print("Game Over")
             else:
-                print("Escapou Fedendo")
+                print("Escapou Fedendo !!")
             
        # raise NotImplementedError("Método não implementado")
 
