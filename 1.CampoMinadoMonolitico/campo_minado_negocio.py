@@ -25,6 +25,16 @@ class CampoMinado:
     def __total_bombas(self, linha, coluna):
         return int((linha*coluna)/3)
 
+
+    def __coordenadas_validas (self, linha, coluna):
+        if linha not in range(0,self.__linha):
+            print ("linha inválida")
+            return False
+        elif coluna not in range(0,self.__coluna):
+            print ("Coluna inválida")
+            return False
+        return True
+
     def imprimir_tabuleiro(self):
         for posicao in self.__tabuleiro:
             print(str(posicao))
@@ -37,5 +47,11 @@ class CampoMinado:
                 caso não: 
                     marcar a posição escolhida no tabuleiro com a quantidade de 
                     bombas existentes nos nós vizinhos """
-        raise NotImplementedError("Método não implementado")
+        if self.__coordenadas_validas(linha,coluna):
+            pass
+        
+
+
+                
+       """ raise NotImplementedError("Método não implementado")
 
