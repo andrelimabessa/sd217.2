@@ -29,13 +29,25 @@ class CampoMinado:
         for posicao in self.__tabuleiro:
             print(str(posicao))
     
+    def _coordenadas_validas(self, linha, coluna):
+        if linha not in range(0, self.__linha):
+            print("linha invalida")
+            return false
+        elif coluna not in range(0, self.__coluna):
+            print("coluna invalida")
+            return false
+        return true
+
+
     def jogada(self, linha, coluna):
         """ 1. Verifica se as coordenadas são válidas
+        
             2. Validar se acertei uma mina: 
                 caso sim:
                     Game Over 
                 caso não: 
                     marcar a posição escolhida no tabuleiro com a quantidade de 
                     bombas existentes nos nós vizinhos """
-        raise NotImplementedError("Método não implementado")
+        _coordenadas_validas(self, linha, coluna)        
+
 
