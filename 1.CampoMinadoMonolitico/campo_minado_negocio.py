@@ -10,13 +10,26 @@ class CampoMinado:
         self.__coordenadas_bombas = self.__distribuir_bombas(linha,coluna)
         
     def __inicializar_tabuleiro(self, linha, coluna):
-        return [['X' for x in range(coluna)] for j in range(linha)]
+        
+        board = [['X' for x in range(coluna)] for j in range(linha)]
+        for l in range(linha):
+            for c in range(coluna):
+                if l != 0 and c != 0:
+                    board[l][c] = 'X'
+                elif l == 0 and c != 0:
+                    board[l][c] = str(c)
+                elif l != 0 and c == 0:
+                    board[l][c] = str(l)
+                else:
+                    board[0][0] = ' '
+                    
+        return board
 
     def __distribuir_bombas(self, linha, coluna):
         quantidade_bombas = self.__total_bombas(linha, coluna)
         coordenadas_bombas = []
         while quantidade_bombas > 1:
-            coordenada = (randint(0, linha - 1), randint(0, coluna - 1))
+            coordenada = (randint(1, linha - 1), randint(1, coluna - 1))
             if coordenada not in coordenadas_bombas:
                 coordenadas_bombas.append(coordenada)
                 quantidade_bombas-=1
@@ -26,13 +39,13 @@ class CampoMinado:
         return coordenadas_bombas
 
     def __total_bombas(self, linha, coluna):
-        return int((linha*coluna)/3)
+        return int((linha-1*coluna-1)/3)
 
     def __coordenadas_validas(self, linha, coluna):
-        if linha not in range(0,self.__linha):
+        if linha not in range(1,self.__linha):
             print("Linha Invalida")
             return False
-        elif coluna not in range(0,self.__coluna):
+        elif coluna not in range(1,self.__coluna):
             print("Coluna Invalida")
             return False
         return True
