@@ -32,22 +32,35 @@ class CampoMinado:
     def _coordenadas_validas(self, linha, coluna):
         if linha not in range(0, self.__linha):
             print("linha invalida")
-            return false
+            return False
         elif coluna not in range(0, self.__coluna):
             print("coluna invalida")
-            return false
-        return true
+            return False
+        return True
 
+    def _conta_bombas_vizinho(self, linha, coluna):
+        bombas = 0
+        for line in range(linha-1, linha+1):
+            for col in range(coluna-1, coluna+1): 
+                posicao = (line, col)
+                if posicao in self.__coordenadas_bombas:
+                    bombas += 1
+        return str(bombas)
+
+    def _marca_jogada(self, linha, coluna):
+        marcador = self._conta_bombas_vizinho(linha, coluna)
+        print(marcador + ' bombas ao redor')
+        self.__tabuleiro[linha][coluna] = marcador
+        for posicao in self.__tabuleiro:
+            print(str(posicao))
 
     def jogada(self, linha, coluna):
-        """ 1. Verifica se as coordenadas são válidas
-        
-            2. Validar se acertei uma mina: 
-                caso sim:
-                    Game Over 
-                caso não: 
-                    marcar a posição escolhida no tabuleiro com a quantidade de 
-                    bombas existentes nos nós vizinhos """
-        _coordenadas_validas(self, linha, coluna)        
-
-
+        if self._coordenadas_validas(linha, coluna):
+            posicao = (linha, coluna)
+            if posicao in self.__coordenadas_bombas:
+                print("Game over")
+            else:
+                print("Campo Limpo")
+                self._marca_jogada(linha, coluna)
+                
+                
