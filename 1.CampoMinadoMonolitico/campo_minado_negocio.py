@@ -53,18 +53,34 @@ class CampoMinado:
 
         # Eliminating adjacent coordinates from special cases
         if line == 0:
-            indexes_to_remove = [2, 3, 4]
+            indexes_to_remove = [
+                (line - 1, column - 1),
+                (line - 1, column),
+                (line - 1, column + 1),
+            ]
             adjacent_coordinates = [v for i, v in enumerate(adjacent_coordinates) if i not in indexes_to_remove]
         elif line == self.__linha__ - 1:
-            indexes_to_remove = [5, 6, 7]
+            indexes_to_remove = [
+                (line + 1, column - 1),
+                (line + 1, column),
+                (line + 1, column + 1)
+            ]
             adjacent_coordinates = [v for i, v in enumerate(adjacent_coordinates) if i not in indexes_to_remove]
 
         # Eliminating adjacent coordinates from special cases
         if column == 0:
-            indexes_to_remove = [0, 2, 5]
+            indexes_to_remove = [
+                (line, column - 1),
+                (line - 1, column - 1),
+                (line + 1, column - 1),
+            ]
             adjacent_coordinates = [v for i, v in enumerate(adjacent_coordinates) if i not in indexes_to_remove]
         elif column == self.__coluna__ - 1:
-            indexes_to_remove = [1, 4, 7]
+            indexes_to_remove = [
+                (line, column + 1),
+                (line - 1, column + 1),
+                (line + 1, column + 1)
+            ]
             adjacent_coordinates = [v for i, v in enumerate(adjacent_coordinates) if i not in indexes_to_remove]
 
         for coordinate in adjacent_coordinates:
