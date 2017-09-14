@@ -28,14 +28,44 @@ class CampoMinado:
     def imprimir_tabuleiro(self):
         for posicao in self.__tabuleiro:
             print(str(posicao))
-    
-    def jogada(self, linha, coluna):
-        """ 1. Verifica se as coordenadas são válidas
-            2. Validar se acertei uma mina: 
-                caso sim:
-                    Game Over 
-                caso não: 
-                    marcar a posição escolhida no tabuleiro com a quantidade de 
-                    bombas existentes nos nós vizinhos """
-        raise NotImplementedError("Método não implementado")
 
+    def __coordenadas_validas(self, linha, coluna):
+        if linha not in range(0, self.__linha):
+            print("Linha invalida")
+            return False
+        elif coluna not in range(0, self.__coluna):
+            print("Coluna invalida")
+            return False
+        return True
+
+    def _contador_bombas(self, linha, coluna):
+        bombas = 0
+        for line in range(linha-1, linha+1):
+            for col in range(coluna-1, coluna+1):
+                posicao = (line, col)
+                if posicao in self.__coordenadas_bombas:
+                    bombas += 1
+        self.__tabuleiro[linha][coluna] = bombas
+        for posicao in self.__tabuleiro:
+            print(str(posicao))
+  
+    def jogada(self, linha, coluna):
+        if self.__coordenadas_validas(linha, coluna):
+            coordenada = linha, coluna
+            print("Jogada")
+            print("Linha: " + str(linha) + " Coluna: " + str(coluna))
+            if coordenada in self.__coordenadas_bombas:
+                print("========================")
+                print("Game Over!")
+                print("*****Novo Jogo*****")
+                self.__init__(self.__linha, self.__coluna)            
+            else:
+                print("========================")
+                self._contador_bombas(linha, coluna)
+                print("========================")
+
+
+
+    
+                
+        
