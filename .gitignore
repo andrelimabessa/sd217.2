@@ -1,7 +1,10 @@
+# Generated Files
 __pycache__
+*.pyc
 
 # VS Code
 .vscode
 
 # JetBrains IDE
 .idea/
+
