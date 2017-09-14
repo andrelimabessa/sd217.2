@@ -6,8 +6,8 @@ class CampoMinado:
 
     def __init__(self, linha, coluna):
         """ Inicializando campo minado com linha X coluna posicoes """
-        self.__linha__ = linha
-        self.__coluna__ = coluna
+        self.__linha = linha
+        self.__coluna = coluna
         self.__tabuleiro = self.__inicializar_tabuleiro(linha, coluna)
         self.__coordenadas_bombas = self.__distribuir_bombas(linha,coluna)
 
@@ -17,7 +17,7 @@ class CampoMinado:
 
 
     def __distribuir_bombas(self, linha, coluna):
-        quantidade_bombas = self.__total_bombas__(linha, coluna)
+        quantidade_bombas = self.__total_bombas(linha, coluna)
         coordenadas_bombas = []
         while quantidade_bombas > 0:
             coordenada = (randint(0, linha - 1), randint(0, coluna - 1))
@@ -27,7 +27,7 @@ class CampoMinado:
         return coordenadas_bombas
 
 
-    def __total_bombas__(self, linha, coluna):
+    def __total_bombas(self, linha, coluna):
         return int((linha*coluna)/3)
 
 
@@ -59,7 +59,7 @@ class CampoMinado:
                 (line - 1, column + 1),
             ]
             adjacent_coordinates = [v for i, v in enumerate(adjacent_coordinates) if i not in indexes_to_remove]
-        elif line == self.__linha__ - 1:
+        elif line == self.__linha - 1:
             indexes_to_remove = [
                 (line + 1, column - 1),
                 (line + 1, column),
@@ -75,7 +75,7 @@ class CampoMinado:
                 (line + 1, column - 1),
             ]
             adjacent_coordinates = [v for i, v in enumerate(adjacent_coordinates) if i not in indexes_to_remove]
-        elif column == self.__coluna__ - 1:
+        elif column == self.__coluna - 1:
             indexes_to_remove = [
                 (line, column + 1),
                 (line - 1, column + 1),
@@ -97,7 +97,7 @@ class CampoMinado:
         if linha < 0 or coluna < 0:
             print "This coordinate(%r, %r) isn't valid." % coordinate_to_play
             return
-        elif linha >= self.__linha__ or coluna >= self.__coluna__:
+        elif linha >= self.__linha or coluna >= self.__coluna:
             print "This coordinate(%r, %r) doesn't exist in the board." % coordinate_to_play
             return
 
