@@ -1,9 +1,14 @@
 from campo_minado_negocio import CampoMinado
 import os
-"""objeto = CampoMinado(10, 10)"""
-"""objeto.imprimir_tabuleiro()"""
-"""objeto.jogada(9,9)"""
-"""objeto.imprimir_tabuleiro()"""
+"""
+    1. Menu para iniciar o jogo
+    2. Menu declara jogada
+    3. Regra para vitoria
+
+    4. Salvar jogadas
+    5. Continuar jogo
+    
+"""
 jogar = True
 while(jogar):
     unused_variable = os.system("clear")
