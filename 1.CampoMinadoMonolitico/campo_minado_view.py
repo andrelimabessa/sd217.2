@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from os.path import isfile
+from os import remove
 import json
 import subprocess as sp
 
@@ -7,12 +8,7 @@ import constants
 import util
 from campo_minado_negocio import CampoMinado
 
-campo_minado = CampoMinado(10, 10)
-# objeto.imprimir_tabuleiro()
-# objeto.jogada(9, 9)
-# objeto.imprimir_tabuleiro()
-
-
+minefield = CampoMinado(10, 10)
 
 
 def run_match():
@@ -21,8 +17,8 @@ def run_match():
 
     if util.is_number(line) and util.is_number(column):
         sp.call('clear', shell=True)
-        campo_minado.jogada(int(line), int(column))
-        campo_minado.imprimir_tabuleiro()
+        minefield.jogada(int(line), int(column))
+        minefield.imprimir_tabuleiro()
     else:
         print "You should learn to type a number!"
 
@@ -36,8 +32,10 @@ def start_game():
             game_file = open(constants.game_file_name)
             game = json.loads(game_file.read())
 
-            campo_minado.restore(game)
+            minefield.restore(game)
             game_file.close()
+        else:
+            remove(constants.game_file_name)
 
     run_match()
 

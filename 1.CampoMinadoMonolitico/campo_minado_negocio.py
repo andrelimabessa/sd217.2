@@ -107,6 +107,11 @@ class CampoMinado:
         if isfile(constants.game_file_name):
             remove(constants.game_file_name)
 
+    def __end_game(self, message):
+        print message
+        self.__delete()
+        exit(0)
+
     def restore(self, game):
         self.__linha = game['linha']
         self.__coluna = game['coluna']
@@ -124,9 +129,16 @@ class CampoMinado:
             return
 
         if coordinate_to_play in self.__coordenadas_bombas:
-            print "You hit a bomb!"
-            self.__delete()
-            exit(0)
+            self.__end_game("You hit a bomb!")
         else:
             self.__tabuleiro[linha][coluna] = self.__get_adjacent_bombs_quantity__(linha, coluna)
-            self.__store()
+            hidden_pieces = 0
+            bombs_size = len(self.__coordenadas_bombas)
+
+            for line in self.__tabuleiro:
+                hidden_pieces += len(filter(lambda item: item == 'X', line))
+
+            if hidden_pieces == bombs_size:
+                self.__end_game("Congratulations!!!")
+            else:
+                self.__store()
