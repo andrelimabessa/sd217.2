@@ -1,6 +1,7 @@
 # Generated Files
 __pycache__
 *.pyc
+game.json
 
 # VS Code
 .vscode

@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 from random import randint
 from sys import exit
+from os import remove
+from os.path import isfile
+import constants
+import json
+
 
 class CampoMinado:
 
@@ -9,12 +14,10 @@ class CampoMinado:
         self.__linha = linha
         self.__coluna = coluna
         self.__tabuleiro = self.__inicializar_tabuleiro(linha, coluna)
-        self.__coordenadas_bombas = self.__distribuir_bombas(linha,coluna)
-
+        self.__coordenadas_bombas = self.__distribuir_bombas(linha, coluna)
 
     def __inicializar_tabuleiro(self, linha, coluna):
         return [['X' for x in range(coluna)] for j in range(linha)]
-
 
     def __distribuir_bombas(self, linha, coluna):
         quantidade_bombas = self.__total_bombas(linha, coluna)
@@ -23,20 +26,17 @@ class CampoMinado:
             coordenada = (randint(0, linha - 1), randint(0, coluna - 1))
             if coordenada not in coordenadas_bombas:
                 coordenadas_bombas.append(coordenada)
-                quantidade_bombas-=1
+                quantidade_bombas -= 1
         return coordenadas_bombas
-
 
     def __total_bombas(self, linha, coluna):
         return int((linha*coluna)/3)
 
-
     def imprimir_tabuleiro(self):
-        print "-" * 50
+        print "-" * 30
         for posicao in self.__tabuleiro:
-            print(str(posicao))
-        print "-" * 50
-
+            print ', '.join(map(str, posicao))
+        print "-" * 30
 
     def __get_adjacent_bombs_quantity__(self, line, column):
         adjacent_bombs_quantity = 0
@@ -90,19 +90,43 @@ class CampoMinado:
 
         return adjacent_bombs_quantity
 
+    def __store(self):
+
+        game = {
+            'linha': self.__linha,
+            'coluna': self.__coluna,
+            'tabuleiro': self.__tabuleiro,
+            'coordenadas_bombas': self.__coordenadas_bombas
+        }
+        game_file = open(constants.game_file_name, 'w')
+
+        game_file.write(json.dumps(game))
+        game_file.close()
+
+    def __delete(self):
+        if isfile(constants.game_file_name):
+            remove(constants.game_file_name)
+
+    def restore(self, game):
+        self.__linha = game['linha']
+        self.__coluna = game['coluna']
+        self.__tabuleiro = game['tabuleiro']
+        self.__coordenadas_bombas = game['coordenadas_bombas']
 
     def jogada(self, linha, coluna):
-        coordinate_to_play = (linha, coluna)
+        coordinate_to_play = [linha, coluna]
 
         if linha < 0 or coluna < 0:
-            print "This coordinate(%r, %r) isn't valid." % coordinate_to_play
+            print "This coordinate(%r, %r) isn't valid." % tuple(coordinate_to_play)
             return
         elif linha >= self.__linha or coluna >= self.__coluna:
-            print "This coordinate(%r, %r) doesn't exist in the board." % coordinate_to_play
+            print "This coordinate(%r, %r) doesn't exist in the board." % tuple(coordinate_to_play)
             return
 
         if coordinate_to_play in self.__coordenadas_bombas:
             print "You hit a bomb!"
+            self.__delete()
             exit(0)
         else:
             self.__tabuleiro[linha][coluna] = self.__get_adjacent_bombs_quantity__(linha, coluna)
+            self.__store()
