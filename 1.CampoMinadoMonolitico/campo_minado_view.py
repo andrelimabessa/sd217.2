@@ -5,18 +5,21 @@ objeto = CampoMinado(3, 5)
 
 #objeto.menu()
 
+print("#########################################")
+print("#              CAMPO MINADO             #")
+print("#########################################")
+print("#1 - INICIAR JOGO                       #")
+print("#2 - SAIR                               #")
+print("#########################################\n")
+
+op = int(input("Inserir Opção :"))
+
+
 
 while objeto.proxima_jogada():
     #print (objeto.proxima_jogada())
-    print("#########################################")
-    print("#              CAMPO MINADO             #")
-    print("#########################################")
-    print("#1 - INICIAR JOGO                       #")
-    print("#2 - SAIR                               #")
-    print("#########################################\n")
 
-    op = int(input("Inserir Opção :"))
-    
+
     objeto.imprimir_tabuleiro()
 
     linha = int(input("Entre com posicao da linha :"))

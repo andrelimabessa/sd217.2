@@ -110,13 +110,14 @@ class CampoMinado:
         if self.__coordenadas_validas(linha,coluna):
             if self.__mina_acertada(linha,coluna):
                 self.perdeu()
-                self.__tabuleiro[linha][coluna] = 1
+                self.__tabuleiro[linha][coluna] = 0
 
                 self._qtd_jogadas = 0
 
 
             else:
                 print("Escapou Fedendo !!")
+                print("Jogadas faltando: " + str(self._qtd_jogadas))
                 self.__tabuleiro[linha][coluna] = self.__pega_vizinhos(linha,coluna)
                 self._qtd_jogadas-=1
 
