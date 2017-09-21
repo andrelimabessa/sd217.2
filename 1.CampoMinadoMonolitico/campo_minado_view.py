@@ -8,7 +8,7 @@ def start():
         linha = int(input("Entre com posicao da linha :"))
         coluna = int(input("Entre com posicao da coluna :"))
         objeto.jogada(linha,coluna)
-        
+
 
 
 

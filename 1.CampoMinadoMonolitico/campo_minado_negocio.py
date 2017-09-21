@@ -1,6 +1,8 @@
 from random import randint
 from ast import literal_eval
 import os
+import json
+
 class CampoMinado:
 
     def __init__(self, linha, coluna):
@@ -40,6 +42,26 @@ class CampoMinado:
         return False
 
 
+
+    def __salvar(self):
+
+        game = {
+            'linha': self.__linha,
+            'coluna': self.__coluna,
+            'total_jogadas': self._qtd_jogadas,
+            'tabuleiro': self.__tabuleiro,
+            'coordenadas_bombas': self.__coordenadas_bombas
+        }
+        arquivo = open("game.json", 'w')
+        arquivo.write(json.dumps(game))
+        arquivo.close()
+
+    def restaurar(self, game):
+        self.__linha = game['linha']
+        self.__coluna = game['coluna']
+        self.__total_jogadas = game['qtd_jogadas']
+        self.__tabuleiro = game['tabuleiro']
+        self.__coordenadas_bombas = game['coordenadas_bombas']
 
 
 
@@ -118,6 +140,7 @@ class CampoMinado:
                 self.__tabuleiro[linha][coluna] = self.__pega_vizinhos(linha,coluna)
                 self._qtd_jogadas-=1
                 print("Faltando Jogadas: " + str(self._qtd_jogadas))
+                self.__salvar()
                 if self._qtd_jogadas == 0: #se for igual a zero nesse modulo, significa que ja foi colocada todas posicoes possiveis sem acerta a bomba
                     print("\nPARABENS VOCE VENCEU !!!!!!!!!!")
 
