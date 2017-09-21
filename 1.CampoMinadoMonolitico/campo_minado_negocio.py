@@ -70,6 +70,8 @@ class CampoMinado:
                 self.__total_jogadas -= 1
                 print("Boa Jogada!. Jogadas faltando: " + str(self.__total_jogadas))
                 self.__salvar()
+                if self.__total_jogadas == 0:
+                    print("Você venceu!")
 
 
     def __salvar(self):

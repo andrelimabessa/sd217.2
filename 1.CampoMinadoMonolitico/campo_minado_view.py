@@ -3,7 +3,7 @@ from os.path import isfile
 from os import remove
 import json
 
-objeto = CampoMinado(5, 5)
+objeto = CampoMinado(2, 2)
 objeto.imprimir_tabuleiro()
 
 print("-------------------- Campo Minado -----------------------")
