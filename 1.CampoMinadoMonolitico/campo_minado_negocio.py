@@ -59,15 +59,18 @@ class CampoMinado:
                         posicao = (l,c)
                         if posicao in self.__coordenadas_bombas:
                             cont += 1
-                            
+
         return cont
 
-    """ Funcao para imprimir o tabuleiro na Tela. """
+    """ Funcao para imprimir o tabuleiro na Tela. 
     def imprimir_tabuleiro(self):
         for posicao in self.__tabuleiro:
-            print(str(posicao))
+            print(str(posicao))"""
 
-    def __jogada(self, linha, coluna):
+    def retorna_tabuleiro(self):
+        return self.__tabuleiro
+
+    def jogada(self,linha, coluna):
         """ 1. Verifica se as coordenadas são válidas
             2. Validar se acertei uma mina:
                 caso sim:
@@ -75,41 +78,32 @@ class CampoMinado:
                 caso não:
                     marcar a posição escolhida no tabuleiro com a quantidade de
                     bombas existentes nos nós vizinhos """
-        
-        if self.__coordenadas_validas(linha,coluna):         
+
+        if self.__coordenadas_validas(linha,coluna):
             posicao = (linha,coluna)
             if posicao not in self.__coordenadas_bombas:
                 self.__tabuleiro[linha][coluna] = str(self.__conta_bombas_vizinho(linha,coluna))
                 return False
             else:
-                print("KABOOOM!!! Fim de jogo!!")
+                self.__tabuleiro[linha][coluna] = '*'
                 return True
 
-    """ Funcao Principal do Jogo """   
-    def principal(self):
-        """ Total de Jogadas """
-        jogadas = 0 
+    def total_bombas(self):
+        tot_bombas = self.__qtd_bombas;
+        return tot_bombas
 
-        """ Variavel de Controle do Loop """
-        perdeu = False
+    def matriz_bomba(self,board):
+        taboleiro = []
+        taboleiro.extend(board)
+        for l in range(1,self.__linha):
+            for c in range(1,self.__coluna):
+                posicao = (l,c)
+                if posicao in self.__coordenadas_bombas:
+                    if(taboleiro[l][c] != '*'):
+                        taboleiro[l][c] = 'B'
+                elif (taboleiro[l][c] == 'X'):
+                    taboleiro[l][c] = ' '
+                else:
+                    pass
 
-        """ Loop principal do Jogo """     
-        while not(perdeu):
-            unused_variable = os.system("clear")
-            self.imprimir_tabuleiro()
-            lin = int(input("Digite a linha: "))
-            col = int(input("Digite a coluna: "))
-            perdeu = self.__jogada(lin,col)
-            jogadas = jogadas + 1
-            if (((self.__linha-1)*(self.__coluna-1))-jogadas) == int(self.__qtd_bombas):
-                print("\nPARABENS!! VOCE VENCEU!!!")
-                perdeu = True
-
-        """ Teste para continuar ou sair. """
-        flag = str(input("Jogar de novo S/N?"))
-        if(flag == 's' or flag == 'S'):
-            """ Se Quiser continuar Verdadeiro """
-            return True
-        else:
-            """ Caso contrario Falso """
-            return False
+        return taboleiro
