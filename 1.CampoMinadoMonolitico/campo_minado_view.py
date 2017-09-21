@@ -1,5 +1,7 @@
 from campo_minado_negocio import CampoMinado
 
-objeto = CampoMinado(10, 10)
+tamanho_campo = int(input("Digite o tamanho do campo: "))
+
+objeto = CampoMinado(tamanho_campo, tamanho_campo)
 objeto.imprimir_tabuleiro()
-objeto.jogada(2,2)
+objeto.jogada()

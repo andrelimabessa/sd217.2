@@ -39,14 +39,55 @@ class CampoMinado:
         return True
 
     def __quantidade_bombas_vizinhas(self, linha, coluna):
-        total = 0
+        bombas = 0
+        coordenadas_bombas_vizinhas = [
+            (linha, coluna - 1),
+            (linha, coluna + 1),
+            (linha - 1, coluna - 1),
+            (linha - 1, coluna),
+            (linha - 1, coluna + 1),
+            (linha + 1, coluna - 1),
+            (linha + 1, coluna),
+            (linha + 1, coluna + 1)
+        ]
 
-        for linha in range(linha - 1, linha + 1):
-            for coluna in range(coluna - 1, coluna + 1):
-                if (linha, coluna) in self.__coordenadas_bombas:
-                    total += 1
+        
+        if linha == 0:
+            indices = [
+                (linha - 1, coluna - 1),
+                (linha - 1, coluna),
+                (linha - 1, coluna + 1),
+            ]
+            coordenadas_bombas_vizinhas = [v for i, v in enumerate(coordenadas_bombas_vizinhas) if i not in indices]
+        elif linha == self.__linha - 1:
+            indices = [
+                (linha + 1, coluna - 1),
+                (linha + 1, coluna),
+                (linha + 1, coluna + 1)
+            ]
+            coordenadas_bombas_vizinhas = [v for i, v in enumerate(coordenadas_bombas_vizinhas) if i not in indices]
 
-        return total
+        if coluna == 0:
+            indices = [
+                (linha, coluna - 1),
+                (linha - 1, coluna - 1),
+                (linha + 1, coluna - 1),
+            ]
+            coordenadas_bombas_vizinhas = [v for i, v in enumerate(coordenadas_bombas_vizinhas) if i not in indices]
+        elif coluna == self.__coluna - 1:
+            indices = [
+                (linha, coluna + 1),
+                (linha - 1, coluna + 1),
+                (linha + 1, coluna + 1)
+            ]
+            coordenadas_bombas_vizinhas = [v for i, v in enumerate(coordenadas_bombas_vizinhas) if i not in indices]
+
+        for coordinate in coordenadas_bombas_vizinhas:
+
+            if coordinate in self.__coordenadas_bombas:
+                bombas += 1
+
+        return bombas
 
     def __movimento(self, linha, coluna):
         total_bombas = self.__quantidade_bombas_vizinhas(linha, coluna)
@@ -54,18 +95,14 @@ class CampoMinado:
         self.__tabuleiro[linha][coluna] = str(total_bombas)
         self.imprimir_tabuleiro()
 
-    def jogada(self, linha, coluna):
-        """ 1. Verifica se as coordenadas são válidas
-            2. Validar se acertei uma mina: 
-                caso sim:
-                    Game Over 
-                caso não: 
-                    marcar a posição escolhida no tabuleiro com a quantidade de 
-                    bombas existentes nos nós vizinhos """
-        if self.__coordenadas_validas(linha, coluna):
-            if (linha, coluna) in self.__coordenadas_bombas:
+    def jogada(self):
+        jogada_linha = int(input("Insira a da linha jogada: ")) 
+        jogada_coluna = int(input("Insira a da coluna jogada: ")) 
+        if self.__coordenadas_validas(jogada_linha, jogada_coluna):
+            if (jogada_linha, jogada_coluna) in self.__coordenadas_bombas:
                 print("Game Over!")
             else:
-                self.__movimento(linha, coluna)
+                self.__movimento(jogada_linha, jogada_coluna)
+                self.jogada()
             
 
