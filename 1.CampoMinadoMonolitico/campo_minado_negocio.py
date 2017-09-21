@@ -1,4 +1,5 @@
 from random import randint
+import json
 
 class CampoMinado:
 
@@ -6,6 +7,7 @@ class CampoMinado:
         """ Inicializando campo minado com linha X coluna posicoes """
         self.__linha = linha
         self.__coluna = coluna
+        self.__total_jogadas = (linha * coluna) - self.__total_bombas(linha, coluna)
         self.__tabuleiro = self.__inicializar_tabuleiro(linha, coluna)
         self.__coordenadas_bombas = self.__distribuir_bombas(linha,coluna)
         
@@ -49,18 +51,44 @@ class CampoMinado:
 
     def _marca_jogada(self, linha, coluna):
         marcador = self._conta_bombas_vizinho(linha, coluna)
-        print(marcador + ' bombas ao redor')
         self.__tabuleiro[linha][coluna] = marcador
-        for posicao in self.__tabuleiro:
-            print(str(posicao))
+        self.imprimir_tabuleiro()
+
+    def proxima_jogada(self):
+        return self.__total_jogadas > 0
 
     def jogada(self, linha, coluna):
         if self._coordenadas_validas(linha, coluna):
             posicao = (linha, coluna)
             if posicao in self.__coordenadas_bombas:
-                print("Game over")
+                print("----------- Acertou na bomba ------------")
+                print("--------------- Game over ---------------")
+                self.__total_jogadas = 0
             else:
-                print("Campo Limpo")
+                
                 self._marca_jogada(linha, coluna)
-                
-                
+                self.__total_jogadas -= 1
+                print("Boa Jogada!. Jogadas faltando: " + str(self.__total_jogadas))
+                self.__salvar()
+
+
+    def __salvar(self):
+
+        game = {
+            'linha': self.__linha,
+            'coluna': self.__coluna,
+            'total_jogadas': self.__total_jogadas,
+            'tabuleiro': self.__tabuleiro,
+            'coordenadas_bombas': self.__coordenadas_bombas
+        }
+        arquivo = open("game.json", 'w')
+
+        arquivo.write(json.dumps(game))
+        arquivo.close()
+
+    def restaurar(self, game):
+        self.__linha = game['linha']
+        self.__coluna = game['coluna']
+        self.__total_jogadas = game['total_jogadas']
+        self.__tabuleiro = game['tabuleiro']
+        self.__coordenadas_bombas = game['coordenadas_bombas']
