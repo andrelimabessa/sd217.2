@@ -1,6 +1,6 @@
 from campo_minado_negocio import CampoMinado
 
-objeto = CampoMinado(3, 5)
+objeto = CampoMinado(2,2)
 
 
 #objeto.menu()

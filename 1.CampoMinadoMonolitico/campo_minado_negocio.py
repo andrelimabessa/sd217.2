@@ -38,9 +38,8 @@ class CampoMinado:
         if coordenada  in self.__coordenadas_bombas:
             return True
         return False
-    def __menu(self):
-        print(". . . .  . . . . . . .Campo Minado . . . . . . .  . . . .")
-        print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
+
+
 
 
 
@@ -110,16 +109,19 @@ class CampoMinado:
         if self.__coordenadas_validas(linha,coluna):
             if self.__mina_acertada(linha,coluna):
                 self.perdeu()
-                self.__tabuleiro[linha][coluna] = 0
-
-                self._qtd_jogadas = 0
+                self.__tabuleiro[linha][coluna] = 0 #marca com zero  a coordenada da bomba
+                self._qtd_jogadas = 0 #Certa zero para o jogo
 
 
             else:
                 print("Escapou Fedendo !!")
-                print("Jogadas faltando: " + str(self._qtd_jogadas))
                 self.__tabuleiro[linha][coluna] = self.__pega_vizinhos(linha,coluna)
                 self._qtd_jogadas-=1
+                print("Faltando Jogadas: " + str(self._qtd_jogadas))
+                if self._qtd_jogadas == 0:
+                    print("\nPARABENS VOCE VENCEU !!!!!!!!!!")
+
+
 
 
 
