@@ -95,20 +95,23 @@ class CampoMinado:
         return self._qtd_jogadas > 0
 
 
+    def perdeu(self):
+        print("______________MINA ACERTADA____________________")
+        print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
+        print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
+        print(". . . . . @ BOOM!!! ÉRROOOUU ! Fastop ! @ . .. . . ")
+        print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
+        print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
+        print("_________________________________________________\n\n")
 
     def jogada(self,linha,coluna):
 
 
         if self.__coordenadas_validas(linha,coluna):
             if self.__mina_acertada(linha,coluna):
-
-
+                self.perdeu()
                 self.__tabuleiro[linha][coluna] = 1
-                print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
-                print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
-                print(". . . . . . @ BOOM!!! ÉRROOOUU ! Fastop ! @ . . . . . .")
-                print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
-                print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
+
                 self._qtd_jogadas = 0
 
 
