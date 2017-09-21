@@ -118,7 +118,7 @@ class CampoMinado:
                 self.__tabuleiro[linha][coluna] = self.__pega_vizinhos(linha,coluna)
                 self._qtd_jogadas-=1
                 print("Faltando Jogadas: " + str(self._qtd_jogadas))
-                if self._qtd_jogadas == 0:
+                if self._qtd_jogadas == 0: #se for igual a zero nesse modulo, significa que ja foi colocada todas posicoes possiveis sem acerta a bomba
                     print("\nPARABENS VOCE VENCEU !!!!!!!!!!")
 
 
