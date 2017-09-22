@@ -1,4 +1,5 @@
 from random import randint
+import json
 
 class CampoMinado:
 
@@ -6,6 +7,7 @@ class CampoMinado:
         """ Inicializando campo minado com linha X coluna posicoes """
         self.__linha = linha
         self.__coluna = coluna
+        self.__total_jogadas = (linha * coluna) - self.__total_bombas(linha, coluna)
         self.__tabuleiro = self.__inicializar_tabuleiro(linha, coluna)
         self.__coordenadas_bombas = self.__distribuir_bombas(linha,coluna)
 
@@ -56,9 +58,36 @@ class CampoMinado:
         self.__tabuleiro[linha][coluna] = str(total_bombas)
         self.imprimir_tabuleiro()
 
+    def proxima_jogada(self):
+        return self.__total_jogadas > 0
+
     def jogada(self, linha, coluna):
         if self.__posicao_valida(linha, coluna):
             if self.__game_over(linha, coluna):
                 print('===== GAME OVER =====')
+                self.__total_jogadas = 0
             else:
                 self.__jogada(linha, coluna)
+                self.__total_jogadas -= 1
+                print("Great!!! Faltam restantes: " + str(self.__total_jogadas))
+                self.__salvar()
+
+    def __salvar(self):
+        game = {
+            'linha': self.__linha,
+            'coluna': self.__coluna,
+            'total_jogadas': self.__total_jogadas,
+            'tabuleiro': self.__tabuleiro,
+            'coordenadas_bombas': self.__coordenadas_bombas
+        }
+        arquivo = open("game.json", 'w')
+
+        arquivo.write(json.dumps(game))
+        arquivo.close()
+
+    def restaurar(self, game):
+        self.__linha = game['linha']
+        self.__coluna = game['coluna']
+        self.__total_jogadas = game['total_jogadas']
+        self.__tabuleiro = game['tabuleiro']
+        self.__coordenadas_bombas = game['coordenadas_bombas']            
