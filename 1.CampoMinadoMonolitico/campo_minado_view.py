@@ -30,8 +30,10 @@ def principal(objeto,linMax,colMax):
     """ Variavel de Controle do Loop """
     perdeu = False
 
+    """ Variavel com o total de Bombas """
     qtd_bombas = objeto.total_bombas()
 
+    """ Sem uso no momento """    
     msg = 0
 
     """ Loop principal do Jogo """
@@ -44,6 +46,9 @@ def principal(objeto,linMax,colMax):
         col = int(input("Digite a coluna: "))
         perdeu = objeto.jogada(lin,col,msg)
         jogadas = jogadas + 1
+        """ Testando se o jogador Venceu,
+            se o jogo foi salvo ou se o jogador
+            perdeu. """
         if(perdeu == False):
             if (((linMax)*(colMax))-jogadas) == int(qtd_bombas):
                 print("\nPARABENS!! VOCE VENCEU!!!")
@@ -54,7 +59,6 @@ def principal(objeto,linMax,colMax):
         else:
             boardbomba = objeto.matriz_bomba(board)
             imprimir_tabuleiro(boardbomba)
-            print(msg)
             print("KABOOOM!!! Fim de jogo!!")
             
     """ Teste para continuar ou sair. """
@@ -78,6 +82,11 @@ def novoJogo():
         objeto = CampoMinado(linMax,colMax)
         jogar = principal(objeto,linMax,colMax)
 
+""" * Funcao para carregar um jogo Salvo *
+    Cria um novo objeto, chama o metodo carregarJogo no servidor 
+    para carregar a partida anterior e devolve o total de linhas
+    e colunas para calculo da derrota. Em seguida continua a partida
+    e em caso de derrota entra no loop de um jogo novo. """
 def carregar_Jogo():
     objeto = CampoMinado(0,0)
     opt = objeto.carregarJogo()
@@ -88,7 +97,10 @@ def carregar_Jogo():
     jogar = principal(objeto,linMax,colMax)
     novoJogo()
 
-
+""" ** Funcao do MENU do jogo **
+    Cria uma lista com as opcoes, aguarda o jogador
+    escolher uma delas em seguida chama a funcao
+    escolhida. """
 def Menu():
     listaMenu = ['Novo Jogo', 'Continuar','Sair']
 
@@ -106,4 +118,6 @@ def Menu():
     else:
         sys.exit(0)
 
+""" Inicia o jogo chamando a funcao do Menu e 
+    a partir dela resolve as demais pendencias."""
 Menu()
