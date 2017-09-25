@@ -39,15 +39,16 @@ def start ():
 
 def partida():
     if isfile("game.json"):
-        result = str(input("Quer continuar um jogo salvo?\n"))
-        if result == "yes":
-            arquivo = open("game.json")
-            game = json.loads(arquivo.read())
-            objeto.restaurar(game)
-            arquivo.close()
-            start()
-        else:
-            remove("game.json")
+        arquivo = open("game.json")
+        game = json.loads(arquivo.read())
+        objeto.restaurar(game)
+        arquivo.close()
+        start()
+    else:
+        print("Não há jogo salvo !\n")
+        
+
+
 
 
 menu()

@@ -1,4 +1,6 @@
 from random import randint
+from os.path import isfile
+from os import remove
 import json
 
 class CampoMinado:
@@ -57,23 +59,32 @@ class CampoMinado:
     def proxima_jogada(self):
         return self.__total_jogadas > 0
 
+    def gameOver(self):
+         print("______________MINA ACERTADA____________________")
+         print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
+         print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
+         print(". . . . . @ BOOM!!! ÉRROOOUU ! Fastop ! @ . .. . . ")
+         print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
+         print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
+         print("_________________________________________________\n\n")
+         remove("game.json")
+
     def jogada(self, linha, coluna):
         if self._coordenadas_validas(linha, coluna):
             posicao = (linha, coluna)
             if posicao in self.__coordenadas_bombas:
-                print("----------- Acertou na bomba ------------")
-                print("--------------- Game over ---------------")
                 self.imprimir_tabuleiro()
                 self.__total_jogadas = 0
+                self.gameOver()
             else:
-
                 self._marca_jogada(linha, coluna)
                 self.__total_jogadas -= 1
                 print("Boa Jogada!. Jogadas faltando: " + str(self.__total_jogadas))
                 self.__salvar()
-                
+
                 if self.__total_jogadas == 0:
                     print("Você venceu!")
+                    remove("game.json")
 
 
     def __salvar(self):
