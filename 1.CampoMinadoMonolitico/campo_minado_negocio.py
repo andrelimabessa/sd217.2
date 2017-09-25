@@ -1,6 +1,4 @@
 from random import randint
-from ast import literal_eval
-import os
 import json
 
 class CampoMinado:
@@ -9,7 +7,7 @@ class CampoMinado:
         """ Inicializando campo minado com linha X coluna posicoes """
         self.__linha = linha
         self.__coluna = coluna
-        self._qtd_jogadas = (linha * coluna) - self.__total_bombas(linha, coluna)
+        self.__total_jogadas = (linha * coluna) - self.__total_bombas(linha, coluna)
         self.__tabuleiro = self.__inicializar_tabuleiro(linha, coluna)
         self.__coordenadas_bombas = self.__distribuir_bombas(linha,coluna)
 
@@ -26,21 +24,56 @@ class CampoMinado:
                 quantidade_bombas-=1
         return coordenadas_bombas
 
-    def __coordenadas_validas(self, linha, coluna):
-        if linha not in range(0,self.__linha):
-            print("Linha Invalida")
-            return False
-        elif linha not in range(0,self.__coluna):
-            print("Coluna Invalida")
-            return False
-        else:
-            return True
-    def __mina_acertada(self, linha, coluna):
-        coordenada = (linha,coluna)
-        if coordenada  in self.__coordenadas_bombas:
-            return True
-        return False
+    def __total_bombas(self, linha, coluna):
+        return int((linha*coluna)/3)
 
+    def imprimir_tabuleiro(self):
+        for posicao in self.__tabuleiro:
+            print(str(posicao))
+
+    def _coordenadas_validas(self, linha, coluna):
+        if linha not in range(0, self.__linha):
+            print("linha invalida")
+            return False
+        elif coluna not in range(0, self.__coluna):
+            print("coluna invalida")
+            return False
+        return True
+
+    def _conta_bombas_vizinho(self, linha, coluna):
+        bombas = 0
+        for line in range(linha-1, linha+1):
+            for col in range(coluna-1, coluna+1):
+                posicao = (line, col)
+                if posicao in self.__coordenadas_bombas:
+                    bombas += 1
+        return str(bombas)
+
+    def _marca_jogada(self, linha, coluna):
+        marcador = self._conta_bombas_vizinho(linha, coluna)
+        self.__tabuleiro[linha][coluna] = marcador
+        self.imprimir_tabuleiro()
+
+    def proxima_jogada(self):
+        return self.__total_jogadas > 0
+
+    def jogada(self, linha, coluna):
+        if self._coordenadas_validas(linha, coluna):
+            posicao = (linha, coluna)
+            if posicao in self.__coordenadas_bombas:
+                print("----------- Acertou na bomba ------------")
+                print("--------------- Game over ---------------")
+                self.imprimir_tabuleiro()
+                self.__total_jogadas = 0
+            else:
+
+                self._marca_jogada(linha, coluna)
+                self.__total_jogadas -= 1
+                print("Boa Jogada!. Jogadas faltando: " + str(self.__total_jogadas))
+                self.__salvar()
+                
+                if self.__total_jogadas == 0:
+                    print("Você venceu!")
 
 
     def __salvar(self):
@@ -48,104 +81,18 @@ class CampoMinado:
         game = {
             'linha': self.__linha,
             'coluna': self.__coluna,
-            'total_jogadas': self._qtd_jogadas,
+            'total_jogadas': self.__total_jogadas,
             'tabuleiro': self.__tabuleiro,
             'coordenadas_bombas': self.__coordenadas_bombas
         }
         arquivo = open("game.json", 'w')
+
         arquivo.write(json.dumps(game))
         arquivo.close()
 
     def restaurar(self, game):
         self.__linha = game['linha']
         self.__coluna = game['coluna']
-        self.__total_jogadas = game['qtd_jogadas']
+        self.__total_jogadas = game['total_jogadas']
         self.__tabuleiro = game['tabuleiro']
         self.__coordenadas_bombas = game['coordenadas_bombas']
-
-
-
-
-
-    def __pega_vizinhos(self,linha,coluna):
-        coordenada = (linha,coluna)
-        linhaLESQ = linha - 1
-        linhaLDIR = linha + 1
-        linhaCAC = coluna - 1
-        linhaCAB = coluna + 1
-        coordenada1 = (linhaLESQ,coluna)
-        coordenada2 = (linhaLDIR,coluna)
-        coordenada3 = (linha,linhaCAC)
-        coordenada4 = (linha,linhaCAB)
-        vizinhos = []
-        count = 0
-
-        if coordenada1 in self.__coordenadas_bombas :
-            count = count + 1
-
-        elif coordenada2 in self.__coordenadas_bombas :
-            count =  + 1
-
-        elif coordenada3 in self.__coordenadas_bombas :
-            count = count + 1
-
-        elif coordenada4 in self.__coordenadas_bombas :
-            count = count + 1
-
-
-        else:
-            pass
-
-        return count
-
-
-
-
-
-
-
-    def __total_bombas(self, linha, coluna):
-        return int((linha*coluna)/3)
-
-    def imprimir_tabuleiro(self):
-
-        for posicao in self.__tabuleiro:
-            print(str(posicao))
-
-    def proxima_jogada(self):
-        return self._qtd_jogadas > 0
-
-
-    def perdeu(self):
-        print("______________MINA ACERTADA____________________")
-        print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
-        print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
-        print(". . . . . @ BOOM!!! ÉRROOOUU ! Fastop ! @ . .. . . ")
-        print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
-        print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
-        print("_________________________________________________\n\n")
-
-    def jogada(self,linha,coluna):
-
-
-        if self.__coordenadas_validas(linha,coluna):
-            if self.__mina_acertada(linha,coluna):
-                self.perdeu()
-                self.__tabuleiro[linha][coluna] = 0 #marca com zero  a coordenada da bomba
-                self._qtd_jogadas = 0 #Certa zero para o jogo
-
-
-            else:
-                print("Escapou Fedendo !!")
-                self.__tabuleiro[linha][coluna] = self.__pega_vizinhos(linha,coluna)
-                self._qtd_jogadas-=1
-                print("Faltando Jogadas: " + str(self._qtd_jogadas))
-                self.__salvar()
-                if self._qtd_jogadas == 0: #se for igual a zero nesse modulo, significa que ja foi colocada todas posicoes possiveis sem acerta a bomba
-                    print("\nPARABENS VOCE VENCEU !!!!!!!!!!")
-
-
-
-
-
-       # raise NotImplementedError("Método não implementado")

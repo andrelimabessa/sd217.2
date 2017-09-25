@@ -1,13 +1,9 @@
 from campo_minado_negocio import CampoMinado
+from os.path import isfile
+from os import remove
+import json
 
-objeto = CampoMinado(2,2)
-
-def start():
-    while objeto.proxima_jogada():
-        objeto.imprimir_tabuleiro()
-        linha = int(input("Entre com posicao da linha :"))
-        coluna = int(input("Entre com posicao da coluna :"))
-        objeto.jogada(linha,coluna)
+objeto = CampoMinado(2, 2)
 
 
 
@@ -24,21 +20,34 @@ def menu():
     if opcao == 1:
         start()
     elif opcao == 2:
-        pass
+        partida()
     else:
         pass
 
 """ FIM MENU"""
 
+def start ():
+    if objeto.proxima_jogada():
+        objeto.imprimir_tabuleiro()
+        linha = int(input("Posição da linha :"))
+        coluna = int(input("Posição da coluna :"))
+        objeto.jogada(linha,coluna)
+        start()
+    else:
+        print("Fim")
+
+
+def partida():
+    if isfile("game.json"):
+        result = str(input("Quer continuar um jogo salvo?\n"))
+        if result == "yes":
+            arquivo = open("game.json")
+            game = json.loads(arquivo.read())
+            objeto.restaurar(game)
+            arquivo.close()
+            start()
+        else:
+            remove("game.json")
+
 
 menu()
-
-
-
-
-""" 1. Menu para iniciar o jogo
-    2. Menu declara jogada
-    3. Regra pra vitoria
-
-    4. Salvar jogadas
-    5.Continuar jogo"""
