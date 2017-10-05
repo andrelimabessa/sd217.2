@@ -3,7 +3,7 @@ from rpyc.utils.server import ThreadedServer
 
 class MyService(rpyc.Service):
     #necessário colocar o prefixo exposed_ para o método line_counter ser visivel de maneira remota
-    def exposed_line_counter(self, fileobj, function): //exposed_expoe o metodo
+    def exposed_line_counter(self, fileobj, function): 
         print('Cliente chamou line counter')
         for linenum, line in enumerate(fileobj.readlines()):
             function(line)
