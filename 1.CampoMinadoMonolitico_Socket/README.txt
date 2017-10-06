@@ -1,13 +1,15 @@
 ******** Campo Minado em Python Versão com Sockets ********
 ** Rubens Aguiar - 1727555 - Sistemas Distribuidos	***
+** Data: 06/10/2017					***
 ***********************************************************
 
 Para rodar o campo_minado versao com Sockets, basta
-executar o "campo_minado_servidor.py" e em seguida
-testar com o "campo_minado_cliente.py". Caso o servidor
+executar o "campo_minado_servidor_socket_funcoes.py" e em seguida
+testar com o "campo_minado_view_socket.py". Caso o servidor
 e o cliente estejam em micros diferentes, é preciso
 adicionar o IP do servidor em ambos os arquivos na
-variavel "HOST".
+variavel "HOST", no caso do servidor o arquivo "campo_minado_negocio.py"
+também precisa estar no mesmo micro do sevidor.
 
 O Arquivo "campo_minado_cliente.py" não possui uma utilidade
 no momento sendo sua existencia justificada para futuras
