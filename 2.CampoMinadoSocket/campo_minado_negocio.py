@@ -5,7 +5,7 @@ import json
 
 class CampoMinado:
 
-    def __init__(self, linha, coluna):
+    def criar_novo_jogo(self, linha, coluna):
         """ Inicializando campo minado com linha X coluna posicoes """
         self.__linha = linha
         self.__coluna = coluna
