@@ -1,0 +1,3 @@
+[submodule "sd2017.2"]
+	path = sd2017.2
+	url = git@github.com:carloseduardosx/sd2017.2.git
