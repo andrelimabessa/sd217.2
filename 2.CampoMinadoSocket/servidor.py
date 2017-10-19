@@ -11,10 +11,10 @@ HOST = '127.0.0.1'     	       # Endereco IP do Servidor
 
 def servidor():
     #Abrindo um socket UDP na porta 5000
-    orig = (HOST, PORT)																
+    orig = (HOST, PORT)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind(orig)
-    
+
     #Cria uma instância para o jogo campo minado
     jogo = CampoMinado()
 
@@ -29,19 +29,19 @@ def servidor():
         print(address, mensagem)
 
         #Envia resposta
-        data = resposta.encode(ENCODE) # Codifica para BASE64 os dados 
-        sock.sendto(data, address) # Enviando dados	
+        data = resposta.encode(ENCODE) # Codifica para BASE64 os dados
+        sock.sendto(data, address) # Enviando dados
 
 def tratar_mensagem(jogo, contexto):
 
     codigo = contexto["codigo_comando"]
 
     switch = {
-       "1": criar_novo_jogo 
+       "1": criar_novo_jogo
     }
     func = switch.get(str(codigo))
-    
-    #Todas as funções devem receber 
+
+    #Todas as funções devem receber
     return func(jogo, contexto)
 
 def criar_novo_jogo(jogo,contexto):
