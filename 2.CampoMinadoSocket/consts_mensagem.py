@@ -4,8 +4,11 @@
 #Define que a mensagem carrega um comando
 CODIGO_COMANDO = "codigo_comando"
 
+
 #Define que a mensagem carrega a resposta à um comando
 CODIGO_RESPOSTA = "codigo_resposta_comando"
+IMPRIMIR = "TABULEIRO"
+TABULEIRO = "TABU"
 
 #Chave que aponta para o valor da quantinha de LINHAS e COLUNAS 
 QUANTIDADE_LINHAS = "quantidade_linhas"

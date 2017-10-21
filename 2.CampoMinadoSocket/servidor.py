@@ -2,7 +2,7 @@ import socket
 from datetime import datetime
 from ast import literal_eval
 from campo_minado_negocio import CampoMinado
-from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOSTA, RESPOSTA_FALHA, RESPOSTA_SUCESSO
+from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOSTA, RESPOSTA_FALHA, RESPOSTA_SUCESSO ,JOGADA_LINHA , CODIGO_COMANDO, COMANDO_EFETUAR_JOGADA, IMPRIMIR
 
 ENCODE = "UTF-8"
 MAX_BYTES = 65535
@@ -35,14 +35,26 @@ def servidor():
 def tratar_mensagem(jogo, contexto):
 
     codigo = contexto["codigo_comando"]
-
+    print("CODIGO =  ",codigo)
     switch = {
-       "1": criar_novo_jogo
+       "1": criar_novo_jogo,
+       "efetuar_jogada":jogada
     }
     func = switch.get(str(codigo))
-
+    print("IMPRIMIR CONTEXTO ",contexto)
     #Todas as funções devem receber
     return func(jogo, contexto)
+
+
+def jogada(jogo,contexto):
+    print("JOGADA() CONTEXTO  ", contexto)
+    linha = int(contexto.get(JOGADA_LINHA))
+    coluna = int(contexto.get(JOGADA_LINHA))
+    print("LINHA ",linha," COLUNA ",coluna)
+    jogoda1 = jogo.jogada(linha,coluna)
+    #tabuleiro = jogo.imprimir_tabuleiro()
+    return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
+
 
 def criar_novo_jogo(jogo,contexto):
 

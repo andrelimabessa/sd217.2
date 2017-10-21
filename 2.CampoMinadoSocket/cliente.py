@@ -34,6 +34,7 @@ def tratar_jogadas():
         contexto[JOGADA_COLUNA] = input("[Jogada] Informe a coluna: ")
         #tranforma em mensagem
         mensagem = str(contexto)
+        print("IMPRIMIR MSM" , mensagem)
         resposta = literal_eval(enviar(mensagem))  #resposta
 
 """Fim tratar_jogadas"""
@@ -60,6 +61,7 @@ def cliente():
 
         resposta = literal_eval(enviar(mensagem))
         print(resposta.get(CODIGO_RESPOSTA))
+       
         tratar_jogadas()
 
 if __name__ == "__main__":
