@@ -2,7 +2,7 @@ import socket
 from datetime import datetime
 from ast import literal_eval
 from campo_minado_negocio import CampoMinado
-from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOSTA, RESPOSTA_FALHA, RESPOSTA_SUCESSO ,JOGADA_LINHA , CODIGO_COMANDO, COMANDO_EFETUAR_JOGADA, COMANDO_SHOW, IMPRIMIR, QTD
+from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOSTA, RESPOSTA_FALHA, RESPOSTA_SUCESSO ,JOGADA_COLUNA, JOGADA_LINHA , CODIGO_COMANDO, COMANDO_EFETUAR_JOGADA, COMANDO_SHOW, IMPRIMIR, QTD
 
 ENCODE = "UTF-8"
 MAX_BYTES = 65535
@@ -60,7 +60,7 @@ def quatidade(jogo,contexto):
 def jogada(jogo,contexto):
     #print("JOGADA() CONTEXTO  ", contexto)
     linha = int(contexto.get(JOGADA_LINHA))
-    coluna = int(contexto.get(JOGADA_LINHA))
+    coluna = int(contexto.get(JOGADA_COLUNA))
     #print("LINHA ",linha," COLUNA ",coluna)
     jogo.jogada(linha,coluna)
     #jogadas = jogo.qtd_jogadas()

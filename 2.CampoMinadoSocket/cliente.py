@@ -1,6 +1,7 @@
 from ast import literal_eval
 from socket import socket, AF_INET, SOCK_DGRAM
 from datetime import datetime
+import sys
 from campo_minado_view import iniciar_novo_jogo, continuar_jogo, efetuar_nova_jogada,menu_inicial, sair
 from consts_mensagem import CODIGO_COMANDO, CODIGO_RESPOSTA, COMANDO_EFETUAR_JOGADA, JOGADA_LINHA, JOGADA_COLUNA ,COMANDO_SHOW, IMPRIMIR, QTD
 
@@ -46,7 +47,8 @@ def tabuleiro_show():
         print (str(posicao))
 
 def tratar_jogadas():
-    while True:
+    proxima_jogada = True
+    while proxima_jogada:
         contexto = {CODIGO_COMANDO: COMANDO_EFETUAR_JOGADA}
         contexto[JOGADA_LINHA] = input("[Jogada] Informe a linha: ")
         contexto[JOGADA_COLUNA] = input("[Jogada] Informe a coluna: ")
@@ -57,12 +59,15 @@ def tratar_jogadas():
         #print ((resposta))
         qtd = qtd_jogadas()
         print('QUANTIDADE DE JOGADAS RESTANTES',qtd)
-        if qtd == '0':
-            print("GAMEOVER")
+        tabuleiro_show()
+        if qtd == "0":
+            print("GAMEOVER !")
+            proxima_jogada = False
+            sys.exit(0)
             #False
 
 
-        tabuleiro_show()
+
 
 
 
@@ -76,7 +81,7 @@ def cliente():
 
     switcher = {
         1: iniciar_novo_jogo,
-        9: sair,
+        3: sair,
     }
 
     while True:
