@@ -72,6 +72,9 @@ class CampoMinado:
          print("_________________________________________________\n\n")
          remove("game.json")
 
+    def qtd_jogadas(self):
+        return self.__total_jogadas
+
     def jogada(self, linha, coluna):
         if self._coordenadas_validas(linha, coluna):
             posicao = (linha, coluna)

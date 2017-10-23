@@ -7,14 +7,15 @@ CODIGO_COMANDO = "codigo_comando"
 
 #Define que a mensagem carrega a resposta à um comando
 CODIGO_RESPOSTA = "codigo_resposta_comando"
-IMPRIMIR = "TABULEIRO"
-TABULEIRO = "TABU"
+IMPRIMIR = "tabuleiro"
+QTD = "jogadas"
+#TABULEIRO = "TABU"
 
-#Chave que aponta para o valor da quantinha de LINHAS e COLUNAS 
+#Chave que aponta para o valor da quantinha de LINHAS e COLUNAS
 QUANTIDADE_LINHAS = "quantidade_linhas"
 QUANTIDADE_COLUNAS = "quantidade_colunas"
 
-#Chave que aponta para o valor da quantinha de LINHAS e COLUNAS 
+#Chave que aponta para o valor da quantinha de LINHAS e COLUNAS
 JOGADA_LINHA = "jogada_linha"
 JOGADA_COLUNA = "jogada_coluna"
 
@@ -27,10 +28,8 @@ COMANDO_VERIFICAR_JOGO_PENDENTE = "verificar_jogo_pendente"
 
 #Caso eu queira EFETUAR uma jogada, necessário informar LINHA e COLUNA
 COMANDO_EFETUAR_JOGADA="efetuar_jogada"
+COMANDO_SHOW = "imprimir"
 
 #Valores para as CHAVESCODIGO_COMANDO
 RESPOSTA_SUCESSO = "Comando realizado com sucesso"
 RESPOSTA_FALHA = "Comando não pode ser executado"
-
-
-

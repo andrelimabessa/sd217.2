@@ -2,7 +2,7 @@ import socket
 from datetime import datetime
 from ast import literal_eval
 from campo_minado_negocio import CampoMinado
-from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOSTA, RESPOSTA_FALHA, RESPOSTA_SUCESSO ,JOGADA_LINHA , CODIGO_COMANDO, COMANDO_EFETUAR_JOGADA, IMPRIMIR
+from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOSTA, RESPOSTA_FALHA, RESPOSTA_SUCESSO ,JOGADA_LINHA , CODIGO_COMANDO, COMANDO_EFETUAR_JOGADA, COMANDO_SHOW, IMPRIMIR, QTD
 
 ENCODE = "UTF-8"
 MAX_BYTES = 65535
@@ -26,7 +26,7 @@ def servidor():
 
         #Trata comando recebido por algum cliente
         resposta = tratar_mensagem(jogo, contexto)
-        print(address, mensagem)
+        #print(address, mensagem)
 
         #Envia resposta
         data = resposta.encode(ENCODE) # Codifica para BASE64 os dados
@@ -35,10 +35,12 @@ def servidor():
 def tratar_mensagem(jogo, contexto):
 
     codigo = contexto["codigo_comando"]
-    print("CODIGO =  ",codigo)
+    #print("CODIGO =  ",codigo)
     switch = {
        "1": criar_novo_jogo,
-       "efetuar_jogada":jogada
+       "efetuar_jogada":jogada,
+       "jogadas":quatidade,
+       "tabuleiro":tabuleiro_show
     }
     func = switch.get(str(codigo))
     print("IMPRIMIR CONTEXTO ",contexto)
@@ -46,16 +48,28 @@ def tratar_mensagem(jogo, contexto):
     return func(jogo, contexto)
 
 
+def tabuleiro_show(jogo,contexto):
+    tabuleiro = jogo.tabuleiro_show()
+    return str(tabuleiro)
+
+def quatidade(jogo,contexto):
+    jogadas = jogo.qtd_jogadas()
+    return str(jogadas)
+
+
 def jogada(jogo,contexto):
-    print("JOGADA() CONTEXTO  ", contexto)
+    #print("JOGADA() CONTEXTO  ", contexto)
     linha = int(contexto.get(JOGADA_LINHA))
     coluna = int(contexto.get(JOGADA_LINHA))
-    print("LINHA ",linha," COLUNA ",coluna)
+    #print("LINHA ",linha," COLUNA ",coluna)
     jogo.jogada(linha,coluna)
-    tabu = jogo.tabuleiro_show()
-    #tabuleiro = jogo.imprimir_tabuleiro()
-    return str(tabu)
-    #return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
+    #jogadas = jogo.qtd_jogadas()
+    #resposta = [tabuleiro]
+    # resposta[1] = jogadas
+    #tabuleiro = jogo.tabuleiro_show()
+    #return str(tabuleiro)
+    #return (str(tabuleiro),str(jogadas))
+    return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
 
 
 def criar_novo_jogo(jogo,contexto):
@@ -63,11 +77,11 @@ def criar_novo_jogo(jogo,contexto):
     linha = int(contexto.get(QUANTIDADE_LINHAS))
     coluna = int(contexto.get(QUANTIDADE_COLUNAS))
 
-    print(linha,coluna)
+    #print(linha,coluna)
     jogo.criar_novo_jogo(linha,coluna)
     jogo.tabuleiro_show()
     tabu = jogo.tabuleiro_show()
-    print (tabu)
+    #print (tabu)
 
     return str(tabu)
     # return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
