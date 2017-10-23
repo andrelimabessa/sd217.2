@@ -34,7 +34,7 @@ class CampoMinado:
             return (str(posicao))
 
     def tabuleiro_show(self):
-        return self.__tabuleiro
+        return str(self.__tabuleiro)
 
     def _coordenadas_validas(self, linha, coluna):
         if linha not in range(0, self.__linha):
@@ -57,7 +57,7 @@ class CampoMinado:
     def _marca_jogada(self, linha, coluna):
         marcador = self._conta_bombas_vizinho(linha, coluna)
         self.__tabuleiro[linha][coluna] = marcador
-        self.imprimir_tabuleiro()
+        #self.imprimir_tabuleiro()
 
     def proxima_jogada(self):
         return self.__total_jogadas > 0
@@ -82,7 +82,7 @@ class CampoMinado:
             else:
                 self._marca_jogada(linha, coluna)
                 self.__total_jogadas -= 1
-                print("Boa Jogada!. Jogadas faltando: " + str(self.__total_jogadas))
+                #print("Boa Jogada!. Jogadas faltando: " + str(self.__total_jogadas))
                 self.__salvar()
 
                 if self.__total_jogadas == 0:

@@ -36,8 +36,13 @@ def tratar_jogadas():
         mensagem = str(contexto)
         print("IMPRIMIR MSM" , mensagem)
         resposta = literal_eval(enviar(mensagem))  #resposta
+        for posicao in resposta:
+            print (str(posicao))
+
 
 """Fim tratar_jogadas"""
+
+
 def cliente():
 
     switcher = {

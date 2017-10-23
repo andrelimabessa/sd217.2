@@ -51,9 +51,11 @@ def jogada(jogo,contexto):
     linha = int(contexto.get(JOGADA_LINHA))
     coluna = int(contexto.get(JOGADA_LINHA))
     print("LINHA ",linha," COLUNA ",coluna)
-    jogoda1 = jogo.jogada(linha,coluna)
+    jogo.jogada(linha,coluna)
+    tabu = jogo.tabuleiro_show()
     #tabuleiro = jogo.imprimir_tabuleiro()
-    return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
+    return str(tabu)
+    #return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
 
 
 def criar_novo_jogo(jogo,contexto):
