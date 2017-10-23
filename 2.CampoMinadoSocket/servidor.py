@@ -63,8 +63,12 @@ def criar_novo_jogo(jogo,contexto):
 
     print(linha,coluna)
     jogo.criar_novo_jogo(linha,coluna)
+    jogo.tabuleiro_show()
+    tabu = jogo.tabuleiro_show()
+    print (tabu)
 
-    return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
+    return str(tabu)
+    # return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
 
 if __name__ == "__main__":
     servidor()

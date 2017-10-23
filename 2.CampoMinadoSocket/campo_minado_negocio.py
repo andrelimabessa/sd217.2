@@ -31,7 +31,10 @@ class CampoMinado:
 
     def imprimir_tabuleiro(self):
         for posicao in self.__tabuleiro:
-            print(str(posicao))
+            return (str(posicao))
+
+    def tabuleiro_show(self):
+        return self.__tabuleiro
 
     def _coordenadas_validas(self, linha, coluna):
         if linha not in range(0, self.__linha):
@@ -73,7 +76,7 @@ class CampoMinado:
         if self._coordenadas_validas(linha, coluna):
             posicao = (linha, coluna)
             if posicao in self.__coordenadas_bombas:
-                self.imprimir_tabuleiro()
+                #self.imprimir_tabuleiro()
                 self.__total_jogadas = 0
                 self.gameOver()
             else:

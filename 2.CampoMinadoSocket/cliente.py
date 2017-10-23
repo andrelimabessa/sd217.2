@@ -60,8 +60,10 @@ def cliente():
         #print(contexto)
 
         resposta = literal_eval(enviar(mensagem))
-        print(resposta.get(CODIGO_RESPOSTA))
-       
+        for posicao in resposta:
+            print (str(posicao))
+        # print(resposta)
+
         tratar_jogadas()
 
 if __name__ == "__main__":
