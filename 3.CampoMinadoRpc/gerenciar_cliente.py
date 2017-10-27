@@ -78,7 +78,8 @@ def tratar_jogadas():
 
 
 def cliente():
-
+     proxy = Server('http://localhost:7002')
+     
     switcher = {
         1: iniciar_novo_jogo,
         3: sair,
