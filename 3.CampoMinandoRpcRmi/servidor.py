@@ -5,6 +5,7 @@ from os.path import isfile
 from os import remove
 import json
 from campo_minado_negocio import CampoMinado
+from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
 from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOSTA, RESPOSTA_FALHA, RESPOSTA_SUCESSO ,JOGADA_COLUNA, JOGADA_LINHA , CODIGO_COMANDO, COMANDO_EFETUAR_JOGADA, COMANDO_SHOW, IMPRIMIR, QTD
 
 ENCODE = "UTF-8"

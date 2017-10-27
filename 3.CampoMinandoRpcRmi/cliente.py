@@ -7,26 +7,26 @@ import sys
 from campo_minado_view import iniciar_novo_jogo, continuar_jogo, efetuar_nova_jogada,menu_inicial, sair, restaurar_jogo
 from consts_mensagem import CODIGO_COMANDO, CODIGO_RESPOSTA, COMANDO_EFETUAR_JOGADA, JOGADA_LINHA, JOGADA_COLUNA ,COMANDO_SHOW, IMPRIMIR, QTD
 
-ENCODE = "UTF-8"
-HOST = '127.0.0.1'   # Endereco IP do Servidor
-PORT = 5000          # Porta que o Servidor esta
-MAX_BYTES = 65535    # Quantidade de Bytes a serem ser recebidos
-
-def enviar(mensagem):
-
-    dest = (HOST, PORT)
-    sock = socket(AF_INET, SOCK_DGRAM)
-
-    #Envio da mensagem
-    data = mensagem.encode(ENCODE)
-    sock.sendto(data, dest)
-
-    #Receber resposta servidor
-    data, address = sock.recvfrom(MAX_BYTES)
-    respota = data.decode(ENCODE)
-
-    #Fechando Socket
-    sock.close()
+# ENCODE = "UTF-8"
+# HOST = '127.0.0.1'   # Endereco IP do Servidor
+# PORT = 5000          # Porta que o Servidor esta
+# MAX_BYTES = 65535    # Quantidade de Bytes a serem ser recebidos
+#
+# def enviar(mensagem):
+#
+#     dest = (HOST, PORT)
+#     sock = socket(AF_INET, SOCK_DGRAM)
+#
+#     #Envio da mensagem
+#     data = mensagem.encode(ENCODE)
+#     sock.sendto(data, dest)
+#
+#     #Receber resposta servidor
+#     data, address = sock.recvfrom(MAX_BYTES)
+#     respota = data.decode(ENCODE)
+#
+#     #Fechando Socket
+#     sock.close()
 
     return respota
 """Função para receber as jogadas e enviar para o servidor"""
@@ -71,33 +71,27 @@ def tratar_jogadas():
 """Fim tratar_jogadas"""
 
 
-def cliente():
+def client():
+    proxy = Server('http://localhost:7002')
+    # print(proxy.print_name("André", "Bessa"))
+    # print(proxy.criar_novo_jogo(4,4))
+    # proxy.criar_novo_jogo(4,4)
+    # imprimir_tabuleiro(proxy.retorna_tabuleiro())
+
 
     switcher = {
         1: iniciar_novo_jogo,
-        2: restaurar_jogo,
-        3: sair,
+        9: sair,
     }
 
     while True:
         menu_inicial()
         opcao = int(input("Opção escolhida: "))
-
-        contexto = {CODIGO_COMANDO: opcao}
-        print (contexto)
         func = switcher.get(opcao)
+        print(func(proxy))
 
-        mensagem = func(contexto)
-        print(mensagem)
-        #print(contexto)
-        resposta = literal_eval(enviar(mensagem))
-
-        # for posicao in resposta:
-        #      print (str(posicao))
-        tratar_jogadas()
-        print (resposta.get("CODIGO_RESPOSTA"))
 
 
 
 if __name__ == "__main__":
-    cliente()
+    client()
