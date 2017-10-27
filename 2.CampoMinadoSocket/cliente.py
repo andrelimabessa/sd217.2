@@ -2,7 +2,7 @@ from ast import literal_eval
 from socket import socket, AF_INET, SOCK_DGRAM
 from datetime import datetime
 import sys
-from campo_minado_view import iniciar_novo_jogo, continuar_jogo, efetuar_nova_jogada,menu_inicial, sair
+from campo_minado_view import iniciar_novo_jogo, continuar_jogo, efetuar_nova_jogada,menu_inicial, sair, restaurar_jogo
 from consts_mensagem import CODIGO_COMANDO, CODIGO_RESPOSTA, COMANDO_EFETUAR_JOGADA, JOGADA_LINHA, JOGADA_COLUNA ,COMANDO_SHOW, IMPRIMIR, QTD
 
 ENCODE = "UTF-8"
@@ -63,16 +63,8 @@ def tratar_jogadas():
         if qtd == "0":
             print("GAMEOVER !")
             proxima_jogada = False
-            sys.exit(0)
+            #sys.exit(0)
             #False
-
-
-
-
-
-
-
-
 
 """Fim tratar_jogadas"""
 
@@ -81,6 +73,7 @@ def cliente():
 
     switcher = {
         1: iniciar_novo_jogo,
+        2: restaurar_jogo,
         3: sair,
     }
 
@@ -89,18 +82,20 @@ def cliente():
         opcao = int(input("Opção escolhida: "))
 
         contexto = {CODIGO_COMANDO: opcao}
-
+        print (contexto)
         func = switcher.get(opcao)
 
         mensagem = func(contexto)
+        print(mensagem)
         #print(contexto)
-
         resposta = literal_eval(enviar(mensagem))
-        for posicao in resposta:
-             print (str(posicao))
-        # print(resposta)
 
+        # for posicao in resposta:
+        #      print (str(posicao))
         tratar_jogadas()
+        print (resposta.get("CODIGO_RESPOSTA"))
+
+
 
 if __name__ == "__main__":
     cliente()

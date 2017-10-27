@@ -1,6 +1,9 @@
 import socket
 from datetime import datetime
 from ast import literal_eval
+from os.path import isfile
+from os import remove
+import json
 from campo_minado_negocio import CampoMinado
 from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOSTA, RESPOSTA_FALHA, RESPOSTA_SUCESSO ,JOGADA_COLUNA, JOGADA_LINHA , CODIGO_COMANDO, COMANDO_EFETUAR_JOGADA, COMANDO_SHOW, IMPRIMIR, QTD
 
@@ -38,6 +41,7 @@ def tratar_mensagem(jogo, contexto):
     #print("CODIGO =  ",codigo)
     switch = {
        "1": criar_novo_jogo,
+       "2": restaurar_jogo,
        "efetuar_jogada":jogada,
        "jogadas":quatidade,
        "tabuleiro":tabuleiro_show
@@ -71,6 +75,12 @@ def jogada(jogo,contexto):
     #return (str(tabuleiro),str(jogadas))
     return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
 
+def restaurar_jogo(jogo,contexto):
+    if isfile("game.json"):
+        arquivo = open("game.json")
+        game = json.loads(arquivo.read())
+        jogo.restaurar(game)
+        arquivo.close()
 
 def criar_novo_jogo(jogo,contexto):
 
@@ -83,8 +93,8 @@ def criar_novo_jogo(jogo,contexto):
     tabu = jogo.tabuleiro_show()
     #print (tabu)
 
-    return str(tabu)
-    # return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
+
+    return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
 
 if __name__ == "__main__":
     servidor()

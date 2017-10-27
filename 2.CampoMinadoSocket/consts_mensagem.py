@@ -22,6 +22,7 @@ JOGADA_COLUNA = "jogada_coluna"
 #Valores para as CHAVESCODIGO_COMANDO
 #Caso eu queria criar um novo jogo é necessário informar quantidade de LINHA e COLUNA
 COMANDO_CRIAR_NOVO_JOGO = "criar_novo_jogo"
+COMANDO_RESTAURAR = "restaurar_jogo"
 
 #Caso eu queira verificar se existe algum jogo pendente, verificar qual o código enviado na RESPOSTA
 COMANDO_VERIFICAR_JOGO_PENDENTE = "verificar_jogo_pendente"

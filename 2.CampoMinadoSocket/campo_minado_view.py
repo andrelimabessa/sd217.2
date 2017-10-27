@@ -66,15 +66,16 @@ def start ():
         print("Fim")
 
 
-def partida():
+def restaurar_jogo(contexto):
     if isfile("game.json"):
         arquivo = open("game.json")
         game = json.loads(arquivo.read())
         objeto.restaurar(game)
         arquivo.close()
-        start()
-    else:
-        print("Não há jogo salvo !\n")
+        #start()
+    # else:
+    #     print("Não há jogo salvo !\n")
+    return str(contexto)
 
 
 
