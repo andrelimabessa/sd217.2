@@ -42,7 +42,14 @@ def iniciar_novo_jogo(proxy):
 
 
     return efetuar_nova_jogada(proxy)
-
+def gameOver():
+     print("______________MINA ACERTADA____________________")
+     print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
+     print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
+     print(". . . . . @ BOOM!!! ÉRROOOUU ! Fastop ! @ . .. . . ")
+     print(". . . . @ . . . . . . . . . . . . . . @ . . . .")
+     print(". . @ . . . . . . . . . . . . . . . . . . @ . .")
+     print("_________________________________________________\n\n")
 
 def efetuar_nova_jogada(proxy):
     # while 10 > 0:
@@ -54,6 +61,7 @@ def efetuar_nova_jogada(proxy):
         linha = int(input("[Jogada]  Informe a  linha: "))
         coluna = int(input("[Jogada] Informe a coluna: "))
         if proxy.efetuar_jogada(linha, coluna) == GAME_OVER:
+            gameOver()
             return GAME_OVER
         imprimir_tabuleiro(proxy.retorna_tabuleiro())
 
