@@ -21,6 +21,12 @@ def menu_inicial():
     print("1. Criar novo jogo")
     print("9. Sair do Jogo")
 
+def total_jogadas(proxy):
+    qtd = proxy.total()
+    print(qtd)
+
+
+
 
 def iniciar_novo_jogo(proxy):
 
@@ -34,18 +40,20 @@ def iniciar_novo_jogo(proxy):
 
     imprimir_tabuleiro(proxy.retorna_tabuleiro())
 
+
     return efetuar_nova_jogada(proxy)
 
 
 def efetuar_nova_jogada(proxy):
     # while 10 > 0:
     while proxy.jogadas_restantes() > 0:
-        print(proxy.jogadas_restantes)
+        qtd = proxy.jogadas_restantes()
+        print("JOGADAS RESTESTANTES : ",qtd)
         linha = int(input("Defina uma linha: "))
         coluna = int(input("Defina uma coluna: "))
-        proxy.efetuar_jogada(linha,coluna)
-        # if proxy.efetuar_jogada(linha-1, coluna-1) == GAME_OVER:
-        #     return GAME_OVER
+        #proxy.efetuar_jogada(linha,coluna)
+        if proxy.efetuar_jogada(linha, coluna) == GAME_OVER:
+            return GAME_OVER
 
         imprimir_tabuleiro(proxy.retorna_tabuleiro())
 

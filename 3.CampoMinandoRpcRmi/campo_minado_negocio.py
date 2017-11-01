@@ -82,7 +82,8 @@ class CampoMinado:
             if posicao in self.__coordenadas_bombas:
                 #self.imprimir_tabuleiro()
                 self.__total_jogadas = 0
-                self.gameOver()
+                #self.gameOver()
+                return GAME_OVER
             else:
                 self._marca_jogada(linha, coluna)
                 self.__total_jogadas -= 1
@@ -90,8 +91,10 @@ class CampoMinado:
                 self.__salvar()
 
                 if self.__total_jogadas == 0:
-                    print("Você venceu!")
+                    #print("Você venceu!")
                     remove("game.json")
+                return VITORIA
+
 
 
     def __salvar(self):
