@@ -20,6 +20,8 @@ def total():
 def jogadas_restantes():
     return campo_minado.qtd_jogadas()
 
+def continuar():
+    return campo_minado.proxima_jogada()
 
 def retorna_tabuleiro():
 
@@ -30,7 +32,7 @@ def server():
     serverRPC = SimpleJSONRPCServer(('localhost', 7002))
     serverRPC.register_function(criar_novo_jogo)
     serverRPC.register_function(efetuar_jogada)
-    # serverRPC.register_function(total)
+    serverRPC.register_function(continuar)
     serverRPC.register_function(jogadas_restantes)
     serverRPC.register_function(retorna_tabuleiro)
     print("Starting server")

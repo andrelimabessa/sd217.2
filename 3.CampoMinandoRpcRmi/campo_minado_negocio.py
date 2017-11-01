@@ -2,7 +2,8 @@ from random import randint
 from os.path import isfile
 from os import remove
 import json
-
+JOGADA_SEGURA = "Jogada Segura"
+GAME_OVER = "Game Over"
 class CampoMinado:
 
     def criar_novo_jogo(self, linha, coluna):
@@ -13,6 +14,7 @@ class CampoMinado:
         self.__tabuleiro = self.__inicializar_tabuleiro(linha, coluna)
         self.__coordenadas_bombas = self.__distribuir_bombas(linha,coluna)
         self.jogadas_restantes = self.qtd_jogadas()
+        self.__salvar()
 
     def __inicializar_tabuleiro(self, linha, coluna):
         return [['*' for x in range(coluna)] for j in range(linha)]
@@ -82,6 +84,7 @@ class CampoMinado:
             if posicao in self.__coordenadas_bombas:
                 #self.imprimir_tabuleiro()
                 self.__total_jogadas = 0
+                remove("game.json")
                 #self.gameOver()
                 return GAME_OVER
             else:
@@ -90,10 +93,12 @@ class CampoMinado:
                 #print("Boa Jogada!. Jogadas faltando: " + str(self.__total_jogadas))
                 self.__salvar()
 
-                if self.__total_jogadas == 0:
+                #if self.__total_jogadas == 0:
                     #print("Você venceu!")
-                    remove("game.json")
-                return VITORIA
+                    #remove("game.json")
+                    #return self.__total_jogadas
+                #return VITORIA
+        return JOGADA_SEGURA
 
 
 

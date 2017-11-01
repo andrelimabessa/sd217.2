@@ -13,13 +13,13 @@ GAME_OVER = "Game Over"
 
 
 def menu_inicial():
-    print("---------------------------------------")
-    print("------------ Campo Minado -------------")
-    print("---------------------------------------")
-    print("\n")
-    print(" Selecione uma opção")
-    print("1. Criar novo jogo")
-    print("9. Sair do Jogo")
+    print("#########################################")
+    print("#              CAMPO MINADO             #")
+    print("#########################################")
+    print("#1 - INICIAR JOGO                       #")
+    print("#2 - RESTAURAR                          #")
+    print("#3 - SAIR                               #")
+    print("#########################################\n")
 
 def total_jogadas(proxy):
     qtd = proxy.total()
@@ -46,15 +46,15 @@ def iniciar_novo_jogo(proxy):
 
 def efetuar_nova_jogada(proxy):
     # while 10 > 0:
-    while proxy.jogadas_restantes() > 0:
+
+    while proxy.continuar():
+        #print(proxy.continuar())
         qtd = proxy.jogadas_restantes()
         print("JOGADAS RESTESTANTES : ",qtd)
-        linha = int(input("Defina uma linha: "))
-        coluna = int(input("Defina uma coluna: "))
-        #proxy.efetuar_jogada(linha,coluna)
+        linha = int(input("[Jogada]  Informe a  linha: "))
+        coluna = int(input("[Jogada] Informe a coluna: "))
         if proxy.efetuar_jogada(linha, coluna) == GAME_OVER:
             return GAME_OVER
-
         imprimir_tabuleiro(proxy.retorna_tabuleiro())
 
     return VITORIA
@@ -79,7 +79,7 @@ def client():
 
     switcher = {
         1: iniciar_novo_jogo,
-        9: sair,
+        3: sair,
     }
 
     while True:
