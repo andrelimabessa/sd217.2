@@ -26,6 +26,9 @@ def total_jogadas(proxy):
     print(qtd)
 
 
+def restaurar_jogo(proxy):
+    proxy.restaurar_jogo()
+    return efetuar_nova_jogada(proxy)
 
 
 def iniciar_novo_jogo(proxy):
@@ -87,6 +90,7 @@ def client():
 
     switcher = {
         1: iniciar_novo_jogo,
+        2: restaurar_jogo,
         3: sair,
     }
 
