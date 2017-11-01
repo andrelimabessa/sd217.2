@@ -16,7 +16,7 @@ def efetuar_jogada(linha, coluna):
 
 
 def jogadas_restantes():
-    return campo_minado.jogadas_restantes
+    return campo_minado.qtd_jogadas
 
 
 def retorna_tabuleiro():

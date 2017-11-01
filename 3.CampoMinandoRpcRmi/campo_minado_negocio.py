@@ -35,7 +35,7 @@ class CampoMinado:
             return (str(posicao))
 
     def tabuleiro_show(self):
-        return (self.__tabuleiro)
+        return  self.__tabuleiro
 
     def _coordenadas_validas(self, linha, coluna):
         if linha not in range(0, self.__linha):

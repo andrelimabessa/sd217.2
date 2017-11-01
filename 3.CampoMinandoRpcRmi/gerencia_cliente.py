@@ -27,6 +27,11 @@ def iniciar_novo_jogo(proxy):
     linha = int(input("Informe a quantidade de linhas: "))
     coluna =int(input("Informe a quantidade de colunas: "))
     proxy.criar_novo_jogo(linha, coluna)
+    # tabuleiro = proxy.retorna_tabuleiro()
+    #
+    # for posicao in tabuleiro:
+    #     print(str(posicao))
+
     imprimir_tabuleiro(proxy.retorna_tabuleiro())
 
     return efetuar_nova_jogada(proxy)
@@ -35,10 +40,12 @@ def iniciar_novo_jogo(proxy):
 def efetuar_nova_jogada(proxy):
     # while 10 > 0:
     while proxy.jogadas_restantes() > 0:
+        print(proxy.jogadas_restantes)
         linha = int(input("Defina uma linha: "))
         coluna = int(input("Defina uma coluna: "))
-        if proxy.efetuar_jogada(linha-1, coluna-1) == GAME_OVER:
-            return GAME_OVER
+        proxy.efetuar_jogada(linha,coluna)
+        # if proxy.efetuar_jogada(linha-1, coluna-1) == GAME_OVER:
+        #     return GAME_OVER
 
         imprimir_tabuleiro(proxy.retorna_tabuleiro())
 
