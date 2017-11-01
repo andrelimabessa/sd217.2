@@ -11,8 +11,7 @@ from consts_mensagem import QUANTIDADE_COLUNAS, QUANTIDADE_LINHAS, CODIGO_RESPOS
 def servidor():
     serverRPC = SimpleJSONRPCServer(('localhost', 7002))
     serverRPC.register_function(criar_novo_jogo)
-
-    # serverRPC.register_function(criar_novo_jogo)
+    serverRPC.register_function(tabuleiro_show)
     # serverRPC.register_function(efetuar_jogada)
     # serverRPC.register_function(jogadas_restantes)
     # serverRPC.register_function(retorna_tabuleiro)
@@ -67,18 +66,16 @@ def restaurar_jogo(jogo,contexto):
         jogo.restaurar(game)
         arquivo.close()
 
-def criar_novo_jogo(jogo,contexto):
+def criar_novo_jogo(serverRPC,contexto):
 
     linha = int(contexto.get(QUANTIDADE_LINHAS))
     coluna = int(contexto.get(QUANTIDADE_COLUNAS))
 
     #print(linha,coluna)
     jogo.criar_novo_jogo(linha,coluna)
-    jogo.tabuleiro_show()
-    tabu = jogo.tabuleiro_show()
+    # jogo.tabuleiro_show()
+    # tabu = jogo.tabuleiro_show()
     #print (tabu)
-
-
     return str({CODIGO_RESPOSTA:RESPOSTA_SUCESSO})
 
 if __name__ == "__main__":

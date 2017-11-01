@@ -1,6 +1,6 @@
 import sys
-from jsonrpc.rpc_server_json import server
-from jsonrpc.rpc_client_json import client
+from  gerencia_server import server
+from  gerencia_cliente import client
 
 print("Você quer executar:")
 print("1 para servidor")

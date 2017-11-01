@@ -82,7 +82,7 @@ def restaurar_jogo(contexto):
 
 def iniciar_novo_jogo(contexto):
 
-    contexto[QUANTIDADE_LINHAS] = input("Informe a qdssuantidade de linhas: ")
+    contexto[QUANTIDADE_LINHAS] = input("Informe a quantidade de linhas: ")
     contexto[QUANTIDADE_COLUNAS] = input("Informe a quantidade de colunas: ")
 
     return str(contexto)

@@ -5,7 +5,68 @@ from socket import socket, AF_INET, SOCK_DGRAM
 from datetime import datetime
 import sys
 #from campo_minado_view import iniciar_novo_jogo, continuar_jogo, efetuar_nova_jogada,menu_inicial, sair, restaurar_jogo
-from consts_mensagem import CODIGO_COMANDO, CODIGO_RESPOSTA, COMANDO_EFETUAR_JOGADA, JOGADA_LINHA, JOGADA_COLUNA ,COMANDO_SHOW, IMPRIMIR, QTD
+from consts_mensagem import CODIGO_COMANDO, CODIGO_RESPOSTA, COMANDO_EFETUAR_JOGADA, JOGADA_LINHA, JOGADA_COLUNA ,COMANDO_SHOW, IMPRIMIR, QTD,QUANTIDADE_LINHAS,QUANTIDADE_COLUNAS
+
+
+
+
+proxy = Server('http://localhost:7002')
+def enviar(mensagem):
+
+    dest = (HOST, PORT)
+    sock = socket(AF_INET, SOCK_DGRAM)
+
+    #Envio da mensagem
+    data = mensagem.encode(ENCODE)
+    sock.sendto(data, dest)
+
+    #Receber resposta servidor
+    data, address = sock.recvfrom(MAX_BYTES)
+    respota = data.decode(ENCODE)
+
+    #Fechando Socket
+    sock.close()
+
+    return respota
+
+def client():
+    proxy = Server('http://localhost:7002')
+
+
+    #print(proxy.criar_novo_jogo(4,4))
+    # proxy.criar_novo_jogo(4,4)
+    # imprimir_tabuleiro(proxy.retorna_tabuleiro())
+
+
+    # switcher = {
+    #     1: iniciar_novo_jogo,
+    #     9: sair,
+    # }
+
+    while True:
+        menu_inicial()
+        opcao = int(input("Opção escolhida: "))
+        if opcao == 1 :
+            contexto = {CODIGO_COMANDO: opcao}
+            func(proxy.iniciar_novo_jogo())
+        else:
+            pass
+
+        #func = switcher.get(opcao)
+
+        print(func(proxy))
+        tratar_jogadas()
+
+        #contexto = {CODIGO_COMANDO: opcao}
+        #print (contexto)
+
+
+        #mensagem = func(contexto)
+        #print(mensagem)
+        #print(contexto)
+        #resposta = literal_eval(enviar(mensagem))
+
+
 
 def menu_inicial():
     print("#########################################")
@@ -19,12 +80,13 @@ def menu_inicial():
 """Função para receber as jogadas e enviar para o servidor"""
 
 
-def iniciar_novo_jogo(contexto):
+def iniciar_novo_jogo():
 
-    linha = input("Informe a qdssuantidade de linhas: ")
-    coluna = input("Informe a quantidade de colunas: ")
-
-    return str(contexto)
+    linha = int(input("Informe a qdssuantidade de linhas: "))
+    coluna = int(input("Informe a quantidade de colunas: "))
+    #str(con)
+    return proxy.criar_novo_jogo(linha,coluna)
+    #return str(contexto)
 
 
 def sair(contexto):
@@ -68,39 +130,6 @@ def tratar_jogadas():
             #False
 
 """Fim tratar_jogadas"""
-
-
-def client():
-    proxy = Server('http://localhost:7002')
-    # print(proxy.print_name("André", "Bessa"))
-    # print(proxy.criar_novo_jogo(4,4))
-    # proxy.criar_novo_jogo(4,4)
-    # imprimir_tabuleiro(proxy.retorna_tabuleiro())
-
-
-    switcher = {
-        1: iniciar_novo_jogo,
-        9: sair,
-    }
-
-    while True:
-        menu_inicial()
-        opcao = int(input("Opção escolhida: "))
-        func = switcher.get(opcao)
-        print(func(proxy))
-        tratar_jogadas()
-
-        #contexto = {CODIGO_COMANDO: opcao}
-        #print (contexto)
-
-
-        #mensagem = func(contexto)
-        #print(mensagem)
-        #print(contexto)
-        #resposta = literal_eval(enviar(mensagem))
-
-
-
 
 
 if __name__ == "__main__":

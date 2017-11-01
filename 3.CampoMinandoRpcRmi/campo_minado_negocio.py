@@ -12,6 +12,7 @@ class CampoMinado:
         self.__total_jogadas = (linha * coluna) - self.__total_bombas(linha, coluna)
         self.__tabuleiro = self.__inicializar_tabuleiro(linha, coluna)
         self.__coordenadas_bombas = self.__distribuir_bombas(linha,coluna)
+        self.jogadas_restantes = self.qtd_jogadas()
 
     def __inicializar_tabuleiro(self, linha, coluna):
         return [['*' for x in range(coluna)] for j in range(linha)]
@@ -34,7 +35,7 @@ class CampoMinado:
             return (str(posicao))
 
     def tabuleiro_show(self):
-        return str(self.__tabuleiro)
+        return (self.__tabuleiro)
 
     def _coordenadas_validas(self, linha, coluna):
         if linha not in range(0, self.__linha):
