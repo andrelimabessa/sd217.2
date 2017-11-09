@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-def post_list(request):          
+from .forms import JogadaForm
+def post_list(request):            
 	if request.method == "POST":
 		form = JogadaForm(request.POST)
 		if form.is_valid():
