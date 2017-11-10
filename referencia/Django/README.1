@@ -16,7 +16,7 @@
 2. Criar projeto
 
     #Linux
-    django-admin startproject projeto
+    django-admin startproject mysite
 
     #Windows
     python myvenv\Scripts\django-admin.py startproject mysite .
@@ -251,7 +251,7 @@
             
             class Meta:
                 model = Jogada
-                fields = ('adversario', 'linha','coluna')
+                fields = ('linha','coluna')
     
     Abra o arquivo "views.py" dentro da pasta "app"
     Altere:
@@ -287,7 +287,6 @@
                 form = JogadaForm(request.POST)
                 if form.is_valid():
                     jogada = form.save(commit=False)
-                    jogada.autor = request.user
                     jogada.created_date = timezone.now()
                     jogada.save()
             else:
@@ -295,3 +294,53 @@
 
             return render(request, 'post_list.html', {'form': form})
             
+17. Exibir Jogadas Salvas
+
+    #Comandos Gerais
+
+    Abra o arquivo "views.py" dentro da pasta "app"
+    Altere:
+
+        def post_list(request):
+        if request.method == "POST":
+            form = JogadaForm(request.POST)
+            if form.is_valid():
+                jogada = form.save(commit=False)
+                jogada.created_date = timezone.now()
+                jogada.save()
+        else:
+            form = JogadaForm()
+
+        jogadas = Jogada.objects.all()
+
+        return render(request, 'post_list.html', {'form': form, 'jogadas':jogadas})
+
+    Abra o arquivo "post_list.html" dentro da pasta "templates"
+    Altere o "block content" para ficar assim:
+
+        <h1>Nova Jogada</h1>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Jogar</button>
+        </form>
+
+        <div class="box-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Linha </th>
+                        <th>Coluna </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jogada in jogadas %}
+                    <tr>
+                        <td>{{ jogada.linha }}</td>
+                        <td>{{ jogada.coluna }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    https://docs.djangoproject.com/en/1.11/topics/forms/
