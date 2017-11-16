@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.utils import timezone
 from .forms import JogadaForm
-def post_list(request):            
+def post_list(request):
 	if request.method == "POST":
 		form = JogadaForm(request.POST)
 		if form.is_valid():
