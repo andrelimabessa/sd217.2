@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<div class="box-body">
+	   	<table>
+	   		<tbody>
+	   			{% for cel in tabuleiro %}
+	   			<tr>
+	   				<td>{{ cel }}</td>
+	   			</tr>
+	   			{% endfor %}
+	   		</tbody>
+	   	</table>
+   	</div>
+   	<br>
+   	<div>
+   		<tr>
+   			{{ mensagem }}
+   		</tr>
+	</div>
+	<br>
+	<form action="/teste/Njogo/" method="post">
+		{% csrf_token %}
+		<input type="submit" name="novojogo" value="OK">
+	</form>
+{% endblock %}

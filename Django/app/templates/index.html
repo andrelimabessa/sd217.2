@@ -2,16 +2,15 @@
 
 {% block content %}
 	<br>
-    <h2>Novo jogo</h2>
-    
-	<form  action="partida" method="post">
+	<h2>Defina o tamanho do Campo Minado</h2>
+	<form  method="post">
 		{% csrf_token %}
 		<p>
 		<label>Tamanho do Tabuleiro</label>
 		</p>
-		<!-- {{ entrada.linha }} -->
+		{{ entrada.linha }}
 		<label>X</label>
-		<!-- {{ entrada.coluna }} -->
+		{{ entrada.coluna }}
 		<br>
 		<br>
 		<p>

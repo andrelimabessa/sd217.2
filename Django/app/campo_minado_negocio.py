@@ -26,6 +26,10 @@ class CampoMinado:
 
     def __total_bombas(self, linha, coluna):
         return int((linha*coluna)/3)
+    
+
+    def retorna_tabuleiro(self):
+        return self.__tabuleiro
 
     def imprimir_tabuleiro(self):
         for posicao in self.__tabuleiro:
@@ -69,12 +73,12 @@ class CampoMinado:
                 self._marca_jogada(linha, coluna)
                 self.__total_jogadas -= 1
                 print("Boa Jogada!. Jogadas faltando: " + str(self.__total_jogadas))
-                self.__salvar()
+                self.salvar()
                 if self.__total_jogadas == 0:
                     print("Você venceu!")
 
 
-    def __salvar(self):
+    def salvar(self):
 
         game = {
             'linha': self.__linha,
