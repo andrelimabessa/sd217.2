@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<br>
-	<h2>Defina o tamanho do Campo Minado</h2>
-	<form  method="post">
-		{% csrf_token %}
-		<p>
-		<label>Tamanho do Tabuleiro</label>
-		</p>
-		{{ entrada.linha }}
-		<label>X</label>
-		{{ entrada.coluna }}
-		<br>
-		<br>
-		<p>
-		<input type="submit" name="novojogo" value="Jogar">
-		</p>
-		<br>
-	</form>
+	<div class="container">
+		<h2>Inicio campo minado</h2>
+		<p>Defina o tamanho do tabuleiro</p>
+		<form action="partida"  method="post">
+			{% csrf_token %}
+			<div class="form-group">
+				<label>Linhas</label>
+				{{ entrada.linha }}
+			</div>
+			<div class="form-group">
+				<label>Colunas</label>
+				{{ entrada.coluna }}
+			</div>
+			<input type="submit" class="btn primary-buttom" name="novojogo" value="Criar novo jogo">
+			<br>
+		</form>
+	</div>
 {% endblock %}
