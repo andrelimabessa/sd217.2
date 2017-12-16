@@ -1,2 +1,0 @@
-pip install python3-memcached
-pip install pyzmq

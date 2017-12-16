@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<p>Digite 0 na linha e 0 na coluna para salvar</p>
+	<form action="principal" method="post">
+		{% csrf_token %}
+		{{ entrada.as_p }}
+		<input type="submit" name="jogada" value="OK">
+	</form>
+	<div class="box-body">
+	   	<table>
+	   		<tbody>
+	   			{% for cel in tabuleiro %}
+	   			<tr>
+	   				<td>{{ cel }}</td>
+	   			</tr>
+	   			{% endfor %}
+	   		</tbody>
+	   	</table>
+   	</div>
+   	<br>
+   	<div>
+   		<tr>
+   			{{ mensagem }}
+   		</tr>
+	</div>
+	<br>
+{% endblock %}
