@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
 from .forms import JogadaForm
-from .models import Jogada
 from .campo_minado_negocio import CampoMinado
 
 # Create your views here.
