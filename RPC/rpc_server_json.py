@@ -1,5 +1,5 @@
 from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
-from src.Monolitico.campo_minado_negocio import CampoMinado
+from Monolitico.campo_minado_negocio import CampoMinado
 
 OK = "200"
 

@@ -4,6 +4,8 @@ from jsonrpclib import Server
 INSTANCIA = "instancia"
 VITORIA = "Parabéns você venceu"
 GAME_OVER = "Game Over"
+COORDENADAS_INVALIDAS = "Coodenadas Invalidas"
+
 """ 
     1. Menu para iniciar o jogo
     2. Menu declara jogada

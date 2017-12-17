@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<p>Digite a linha e a coluna para realizar a jogada</p>
+	<div>
+   		<tr>
+   			{{ mensagem }}
+   		</tr>
+	</div>
+	<form action="principal" method="POST">
+		{% csrf_token %}
+		{{ entrada.as_p }}
+		<input type="submit" name="jogada" value="OK">
+	</form>
+	<div class="box-body">
+	   	<table>
+	   		<tbody>
+	   			{% for cel in tabuleiro %}
+	   			<tr>
+	   				<td>{{ cel }}</td>
+	   			</tr>
+	   			{% endfor %}
+	   		</tbody>
+	   	</table>
+   	</div>
+   	<br>
+   	<div>
+   		<tr>
+   			{{ mensagem }}
+   		</tr>
+	</div>
+	<br>
+{% endblock %}
