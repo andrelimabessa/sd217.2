@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Form control: input</h2>
+
+  <form method="post" action="{% url 'partida' %}">
+      {% csrf_token %}
+    <div class="row">
+        <p>Tamanho do campo</p>
+        <div class="col-sm-6 form-group">
+          <label for="linha">Linha:</label>
+          <input type="text" class="form-control" name="linha">
+        </div>
+        <div class="col-sm-6 form-group">
+          <label for="coluna">Colunas:</label>
+          <input type="text" class="form-control" name="coluna">
+        </div>
+      </div>
+      <div class="row">
+        <p>Posicao da jogada</p>
+        <div class="col-sm-6 form-group">
+          <label for="linha">Linha:</label>
+          <input type="text" class="form-control" name="linha-jogada">
+        </div>
+        <div class="col-sm-6 form-group">
+          <label for="coluna">Colunas:</label>
+          <input type="text" class="form-control" name="coluna-jogada">
+        </div>
+      </div>
+    <input type="submit" class="btn primary-buttom" value="Criar novo jogo">
+  </form>
+
+</div>
+
+</body>
+</html>
