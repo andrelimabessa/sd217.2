@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h3><p>Digite o tamanho do Campo Minado (tamanho min.: 2X2)</p></h3>
+	<form  action="partida" method="post">
+		{% csrf_token %}
+		<p>
+		   <label>Quatidade de linhas:</label>
+		   {{ jogadaForm.linha }}
+	    
+		   <br/>
+	       <label>Quantidade de colunas</label>
+		   {{ jogadaForm.coluna }}
+		</p>
+		<p>
+		  <input type="submit" name="novojogo" value="Começar jogo">
+		</p>
+		<br>
+	</form>
+{% endblock %}

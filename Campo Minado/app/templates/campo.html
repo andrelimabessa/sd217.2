@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<p>Informe a linha e coluna para uma nova jogada</p>
+	<div>
+   		<tr>
+   			{{ mensagem }}
+   		</tr>
+	</div>
+	<form action="principal" method="POST">
+		{% csrf_token %}
+		{{ jogadaForm.as_p }}
+		<input type="submit" name="jogada" value="Jogar">
+	</form>
+	<div class="box-body">
+	   	<table>
+	   		<tbody>
+	   			{% for cel in campo %}
+	   			<tr>
+	   				<td>{{ cel }}</td>
+	   			</tr>
+	   			{% endfor %}
+	   		</tbody>
+	   	</table>
+   	</div>
+   	<br>
+   	<div>
+   		<tr>
+   			{{ msg }}
+   		</tr>
+	</div>
+	<br>
+{% endblock %}
